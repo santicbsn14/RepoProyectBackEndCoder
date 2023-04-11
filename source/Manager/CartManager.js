@@ -13,24 +13,35 @@ class ShoppingCartManager {
     async addCart(products){
         try{
         let carts = await this.getCarts()
-        if(!carts){ await fs.writeFile(this.path, JSON.stringify(carts))}
-        const newCart = [...carts,{id:this.#nextId++,
-        products:[products]}]
+        const keyRequired = ['id', 'quantity'];
+        const isCorrect = products.every(obj => keyRequired.every(key => obj.hasOwnProperty(key) && typeof obj[key] === "number"));
+        if (!isCorrect) throw new Error('El carrito de compras no tiene productos cargados o el formato del producto es incorrecto');
+
+        const newCart = [...carts,{id: await this.getLastId(),
+        products:products}]
+
         await fs.writeFile(this.path, JSON.stringify(newCart))
         return {message: 'carrito de compras creado conn exito'}
         }catch(error){
             throw {error: error.message};
         }
     }
-
-
     async getCarts() {
         try {
             let data = await fs.readFile(this.path, 'utf-8');
-            if(data){ return JSON.parse(data)} else{ return data=[]}
+            if(data){
+            return JSON.parse(data)
+        }
+            else{
+                 return data=[]
+                }
 
-        } catch (error) {
-            throw error;
+        }   catch (error) {
+            if (error.code === 'ENOENT') {
+                return [];
+            } else {
+                throw error;
+            }
         }
     }
 
@@ -57,9 +68,21 @@ class ShoppingCartManager {
             console.log(error)
         }
     }
+    async getLastId() {
+        try {
+            let lastId = this.#nextId;
+            const data = await this.getCarts();
+            for (let i = 0; i < data.length; i++) {
+                if (data[i].id > lastId) {
+                    lastId = data[i].id;
+                }
+            }
 
+            return lastId + 1;
 
-
+        } catch (error) {
+            throw error;
+        }
+    }
 }
-
 export default ShoppingCartManager;

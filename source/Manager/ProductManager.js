@@ -30,7 +30,7 @@ class ProductManager{
             stock: stock,
             status: true,
             category: category,
-            id : ++ this.nextid 
+            id : await this.getLastId()
         }
         products.push(newProduct)
         await fs.writeFile(this.path, JSON.stringify(products))
@@ -44,9 +44,13 @@ class ProductManager{
        let products = await fs.readFile(this.path, 'utf-8')
        if(products){ return JSON.parse(products)} else{ return products=[]}
        
-        }catch(error){
-            console.log(error)
+    } catch (error) {
+        if (error.code === 'ENOENT') {
+            return [];
+        } else {
+            throw error;
         }
+    }
     }
     async getProductbyid(idProduct){
         try{
@@ -93,6 +97,21 @@ class ProductManager{
       throw error;
     }
   }
-    }
+  async getLastId() {
+    try {
+        let lastId = this.nextid;
+        const data = await this.getProducts();
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].id > lastId) {
+                lastId = data[i].id;
+            }
+        }
 
+        return lastId + 1;
+
+    } catch (error) {
+        throw error;
+    }
+    }
+}
 export default ProductManager
