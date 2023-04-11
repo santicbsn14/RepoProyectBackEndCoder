@@ -14,7 +14,7 @@ class ShoppingCartManager {
             const product = new ProductManager();
             console.log(products)
         let carts = await this.getCarts()
-        const keyRequired = ['id', 'quantity'];
+        const keyRequired = ['id'];
         const isCorrect = products.every(obj => keyRequired.every(key => obj.hasOwnProperty(key) && typeof obj[key] === "number"));
         if (!isCorrect) throw new Error('El carrito de compras no tiene productos cargados o el formato del producto es incorrecto');
         const newCart = [...carts,{id: await this.getLastId(),
