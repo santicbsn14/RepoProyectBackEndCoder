@@ -15,6 +15,7 @@ productsRouter.get('/', async (req,res)=>{
     res.status(404).send(error)
 }
 })
+
 productsRouter.get('/:pid', async (req,res)=>{
     try{
     let pid = +req.params.pid
