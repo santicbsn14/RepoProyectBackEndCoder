@@ -61,6 +61,7 @@ class ProductManager{
         return {productbyid}
         }catch(error){
          console.log(error, 'Ese producto no existe')
+         return false
         }
     }
    async updateProduct(idProduct, newobj){

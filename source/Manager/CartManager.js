@@ -1,6 +1,5 @@
 import fs from 'fs/promises';
-
-
+import ProductManager from './ProductManager.js'
 class ShoppingCartManager {
     #nextId;
 
@@ -16,7 +15,8 @@ class ShoppingCartManager {
         const keyRequired = ['id', 'quantity'];
         const isCorrect = products.every(obj => keyRequired.every(key => obj.hasOwnProperty(key) && typeof obj[key] === "number"));
         if (!isCorrect) throw new Error('El carrito de compras no tiene productos cargados o el formato del producto es incorrecto');
-
+        const productExist =  await this.getProductById(products)
+        if(productExist=== undefined) return 'Productoo ingresado inexistente'
         const newCart = [...carts,{id: await this.getLastId(),
         products:products}]
 
@@ -45,6 +45,17 @@ class ShoppingCartManager {
         }
     }
 
+    async getProductById(products) {
+        try {
+            const product = new ProductManager();
+            for (const item of products) {
+                await product.getProductbyid(item.id);
+            }
+        } catch (error) {
+            throw error;
+            return false
+        }
+    }
     async getProductsByCartId(idCart) {
         try {
             const data = await this.getCarts()
