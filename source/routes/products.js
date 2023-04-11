@@ -6,7 +6,10 @@ const productsRouter = Router()
 
 productsRouter.get('/',async  (req, res)=>{
     try{
-    res.status(200).json(await productManager.getProducts())
+    let {limit} = req.query
+    const data = await productManager.getProducts()
+    let result = limit ? data.slice(0, limit): data
+    res.send(result)
     }catch(error){
         res.status(404).send(error)
     }
