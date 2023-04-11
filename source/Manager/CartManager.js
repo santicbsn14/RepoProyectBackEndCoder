@@ -5,15 +5,17 @@ class ShoppingCartManager {
     #nextId;
 
     constructor() {
+        this.carts=[];
         this.#nextId = 1;
         this.path = './source/carts.json';
     }
 
-    async addCart(body){
+    async addCart(products){
         try{
-        const carts = await this.getCarts()
+        let carts = await this.getCarts()
+        if(!carts){ await fs.writeFile(this.path, JSON.stringify(carts))}
         const newCart = [...carts,{id:this.#nextId++,
-        products:[body]}]
+        products:[products]}]
         await fs.writeFile(this.path, JSON.stringify(newCart))
         return {message: 'carrito de compras creado conn exito'}
         }catch(error){
@@ -24,8 +26,8 @@ class ShoppingCartManager {
 
     async getCarts() {
         try {
-            const data = await fs.readFile(this.path, 'utf-8');
-            return JSON.parse(data);
+            let data = await fs.readFile(this.path, 'utf-8');
+            if(data){ return JSON.parse(data)} else{ return data=[]}
 
         } catch (error) {
             throw error;

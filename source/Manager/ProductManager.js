@@ -18,9 +18,7 @@ class ProductManager{
     async addproduct({title,description,price,thumbnail,code,stock,category}){
     try{
         let products = await this.getProducts()
-        if (!products) {  // si products es undefined, crea una lista vacía
-            products = []
-        }
+
          if (!title || !description || !code || !price || !stock || !category) throw new Error('Todos los campos son obligatorios');
          if (!(typeof title === typeProduct.title) || !(typeof description === typeProduct.description) || !(typeof code === typeProduct.code) || !(typeof price === typeProduct.price) || !(typeof stock === typeProduct.stock) || !(typeof category === typeProduct.category) ) throw new Error('Los tipos de datos son incorrectos');
         const newProduct = {
@@ -44,7 +42,8 @@ class ProductManager{
     async getProducts(){
         try{
        let products = await fs.readFile(this.path, 'utf-8')
-       return JSON.parse(products)
+       if(products){ return JSON.parse(products)} else{ return products=[]}
+       
         }catch(error){
             console.log(error)
         }
