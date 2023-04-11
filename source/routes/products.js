@@ -4,12 +4,16 @@ import ProductManager from '../Manager/ProductManager.js';
 const productManager = new ProductManager()
 const productsRouter = Router()
 
-productsRouter.get('/',async  (req, res)=>{
+
+productsRouter.get('/', async (req,res)=>{
     try{
-    res.status(200).json(await productManager.getProducts())
-    }catch(error){
-        res.status(404).send(error)
-    }
+    let {limit} = req.query
+    const data = await productManager.getProducts()
+    let result = limit ? data.slice(0, limit): data
+    res.send(result)
+}catch(error){
+    res.status(404).send(error)
+}
 })
 productsRouter.get('/:pid', async (req,res)=>{
     try{

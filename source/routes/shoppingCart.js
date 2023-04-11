@@ -4,8 +4,7 @@ import { Router } from "express";
 let cart = new ShoppingCartManager()
 cartRouter.post('/', async (req,res)=>{
     try{
-    let products = req.body
-    res.status(201).json(await cart.addCart(products))
+    res.status(201).json(await cart.addCart())
     }catch(error){
         res.status(404).send(error)
     }
