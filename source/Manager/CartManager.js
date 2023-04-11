@@ -9,16 +9,12 @@ class ShoppingCartManager {
         this.path = './source/carts.json';
     }
 
-    async addCart(products){
+    async addCart(){
         try{
-            const product = new ProductManager();
-            console.log(products)
+
         let carts = await this.getCarts()
-        const keyRequired = ['id'];
-        const isCorrect = products.every(obj => keyRequired.every(key => obj.hasOwnProperty(key) && typeof obj[key] === "number"));
-        if (!isCorrect) throw new Error('El carrito de compras no tiene productos cargados o el formato del producto es incorrecto');
         const newCart = [...carts,{id: await this.getLastId(),
-        products:products}]
+        products:[]}]
         await fs.writeFile(this.path, JSON.stringify(newCart))
         return {message: 'carrito de compras creado conn exito'}
         }catch(error){
