@@ -1,0 +1,41 @@
+<div>
+    
+    <form id="myform" action="">
+        <h2>Agregar producto</h2>
+        <label for="texto">Titulo</label>
+        <input id="title" type="text"/>
+            <label for="texto">Descripcion</label>
+        <input id="description" type="text"/>
+                <label for="codigo">Code</label>
+        <input id="code" type="string"/>
+            <label for="texto">Precio</label>
+        <input id="precio" type="text"/>
+                <label for="texto">Stock</label>
+        <input id="stock" type="number"/>
+                <label for="category">Category</label>
+        <input id="category" type="text"/>
+                      <label for="category">Thumbnail</label>
+        <input id="thumbnail" type="text"/>
+        <button type="submit">Agregar</button>
+
+    
+    <div> los productos agregados hasta el momento son {{products}} </div>
+</div>
+<script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
+<script >
+    const socket = io()
+    let myform = document.getElementById('myform')
+    myform.addEventListener('submit', function(event){
+        event.preventDefault()
+        const productTitle = document.getElementById('title').value;
+        const descriptionProduct = document.getElementById('description').value;
+        const codeProduct = document.getElementById('code').value;
+        const precioProduct = document.getElementById('precio').value;
+        const stockProduct = document.getElementById('stock').value;
+        const categoryTitle = document.getElementById('category').value;
+        const thumbnailTitle = document.getElementById('thumbnail').value;
+        let productnew = {title:productTitle, description:descriptionProduct, code: codeProduct, price:precioProduct, thumbnail:thumbnailTitle, stock: stockProduct,category: categoryTitle}
+        socket.emit('agregando_producto', productnew)
+    })
+
+</script>
