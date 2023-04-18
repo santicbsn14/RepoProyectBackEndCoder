@@ -1,4 +1,5 @@
 import fs from 'fs/promises'
+
 const typeProduct = {
     title:'string',
     description:'string',
@@ -46,6 +47,26 @@ class ProductManager{
        
     } catch (error) {
         if (error.code === 'ENOENT') {
+            return [];
+        } else {
+            throw error;
+        }
+    }
+    }
+    async getProductsTitle(){
+        try{
+       let products = await fs.readFile(this.path, 'utf-8')
+       let parsedProducts = JSON.parse(products)
+       let titleProduct = []
+       for (let i = 0; i < parsedProducts.length; i++) {
+        
+        titleProduct.push(parsedProducts[i].title) 
+      }
+      return titleProduct
+       
+    } catch (error) {
+        if (error.code === 'ENOENT') {
+            console.log(error)
             return [];
         } else {
             throw error;
@@ -115,4 +136,6 @@ class ProductManager{
     }
     }
 }
+
+
 export default ProductManager
