@@ -9,7 +9,7 @@
                 <label for="codigo">Code</label>
         <input id="code" type="string"/>
             <label for="texto">Precio</label>
-        <input id="precio" type="text"/>
+        <input id="precio" type="number"/>
                 <label for="texto">Stock</label>
         <input id="stock" type="number"/>
                 <label for="category">Category</label>
@@ -30,11 +30,13 @@
         const productTitle = document.getElementById('title').value;
         const descriptionProduct = document.getElementById('description').value;
         const codeProduct = document.getElementById('code').value;
-        const precioProduct = document.getElementById('precio').value;
-        const stockProduct = document.getElementById('stock').value;
+        const precioProduct = parseInt(document.getElementById('precio').value);
+        const stockProduct = parseInt(document.getElementById('stock').value);
         const categoryTitle = document.getElementById('category').value;
         const thumbnailTitle = document.getElementById('thumbnail').value;
         let productnew = {title:productTitle, description:descriptionProduct, code: codeProduct, price:precioProduct, thumbnail:thumbnailTitle, stock: stockProduct,category: categoryTitle}
+        console.log(typeof precioProduct);
+console.log(typeof stockProduct);
         socket.emit('agregando_producto', productnew)
     })
 

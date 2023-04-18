@@ -19,6 +19,7 @@ class ProductManager{
     async addproduct({title,description,price,thumbnail,code,stock,category}){
     try{
         if (!title || !description || !code || !price || !stock || !category) throw new Error('Todos los campos son obligatorios');
+        if (!(typeof title === typeProduct.title) || !(typeof description === typeProduct.description) || !(typeof code === typeProduct.code) || !(typeof price === typeProduct.price) || !(typeof stock === typeProduct.stock) || !(typeof category === typeProduct.category) ) throw new Error('Los tipos de datos son incorrectos');
         let products = await this.getProducts()
 
         const newProduct = {
