@@ -48,10 +48,18 @@ void(async()=>{
                     console.log(data)
                     try {
                         productManager.addproduct(data);
-                        console.log('El producto ha sido ingresado con éxito');
+                        
                     } catch (error) {
                         console.error(error);
                         console.log('El producto no ha sido ingresado con éxito');
+                    }
+                })
+                socket.on('eliminando_producto', (iddelete)=>{
+                    try {
+                        console.log(iddelete)
+                        productManager.deleteProduct(iddelete)
+                    } catch (error) {
+                        console.log('No se pudo eliminar el producto')
                     }
                 })
             })

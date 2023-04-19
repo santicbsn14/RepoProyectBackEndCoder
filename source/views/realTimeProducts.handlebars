@@ -1,7 +1,6 @@
 <div>
-    
+    <h2>Agregar producto</h2>
     <form id="myform" action="">
-        <h2>Agregar producto</h2>
         <label for="texto">Titulo</label>
         <input id="title" type="text"/>
             <label for="texto">Descripcion</label>
@@ -17,6 +16,13 @@
                       <label for="category">Thumbnail</label>
         <input id="thumbnail" type="text"/>
         <button type="submit">Agregar</button>
+        </form>
+        <h2>Eliminar Producto</h2>
+        <form id="formdelete" >
+            <label for="iddelete">Id de producto a eliminar : </label>
+            <input id="iddelete" type="number"/>
+            <button type="submit">Eliminar Producto</button>
+        </form>
 
     
     <div> los productos agregados hasta el momento son {{products}} </div>
@@ -35,9 +41,14 @@
         const categoryTitle = document.getElementById('category').value;
         const thumbnailTitle = document.getElementById('thumbnail').value;
         let productnew = {title:productTitle, description:descriptionProduct, code: codeProduct, price:precioProduct, thumbnail:thumbnailTitle, stock: stockProduct,category: categoryTitle}
-        console.log(typeof precioProduct);
-console.log(typeof stockProduct);
         socket.emit('agregando_producto', productnew)
-    })
+        })
+let formdelete = document.getElementById('formdelete');
+formdelete.addEventListener('submit', function(event) {
+  event.preventDefault();
+  let iddelete = parseInt(document.getElementById('iddelete').value);
+  socket.emit('eliminando_producto', iddelete);
+});
+    
 
 </script>
