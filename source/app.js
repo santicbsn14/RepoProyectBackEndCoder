@@ -44,20 +44,23 @@ void(async()=>{
             const socketServer = new Server(httpServer)
             socketServer.on('connection', socket=>{
                 console.log('Nuevo cliente conectado')
-                socket.on('agregando_producto', (data)=>{
+                socket.on('agregando_producto', async (data)=>{
                     console.log(data)
                     try {
                         productManager.addproduct(data);
-                        
+                        let dataact = await productManager.getProductsTitle()
+                        socket.emit('productos_actualizadosadd', dataact)
                     } catch (error) {
                         console.error(error);
-                        console.log('El producto no ha sido ingresado con éxito');
+                        console.log('Problemas al ingresar el producto')
                     }
                 })
-                socket.on('eliminando_producto', (iddelete)=>{
+                socket.on('eliminando_producto', async (iddelete)=>{
                     try {
                         console.log(iddelete)
-                        productManager.deleteProduct(iddelete)
+                        await productManager.deleteProduct(iddelete)
+                        let dataact = await productManager.getProductsTitle()
+                        socket.emit('productos_actualizados', dataact)
                     } catch (error) {
                         console.log('No se pudo eliminar el producto')
                     }

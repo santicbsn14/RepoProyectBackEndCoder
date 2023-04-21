@@ -25,7 +25,7 @@
         </form>
 
     
-    <div> los productos agregados hasta el momento son {{products}} </div>
+    <div id="products"> los productos agregados hasta el momento son: <li>{{products}}</li> </div>
 </div>
 <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
 <script >
@@ -42,12 +42,31 @@
         const thumbnailTitle = document.getElementById('thumbnail').value;
         let productnew = {title:productTitle, description:descriptionProduct, code: codeProduct, price:precioProduct, thumbnail:thumbnailTitle, stock: stockProduct,category: categoryTitle}
         socket.emit('agregando_producto', productnew)
+        console.log(productnew)
+        let listaproducts = document.getElementById('products')
+         socket.on('productos_actualizadosadd', async (data)=>{
+    listaproducts.innerHTML=''
+    data.forEach(product=>{
+        let li = document.createElement('li')
+        li.innerText= product
+        listaproducts.appendChild(li)
+    })
+  })
         })
 let formdelete = document.getElementById('formdelete');
 formdelete.addEventListener('submit', function(event) {
   event.preventDefault();
   let iddelete = parseInt(document.getElementById('iddelete').value);
   socket.emit('eliminando_producto', iddelete);
+  let listaproducts = document.getElementById('products')
+  socket.on('productos_actualizados', async (data)=>{
+    listaproducts.innerHTML=''
+    data.forEach(product=>{
+        let li = document.createElement('li')
+        li.innerText= product
+        listaproducts.appendChild(li)
+    })
+  })
 });
     
 
