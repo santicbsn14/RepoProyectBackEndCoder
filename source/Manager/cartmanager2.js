@@ -1,19 +1,22 @@
-import cartSchema from "../models/cartSchema.js";
+import cartMongooseDao from "../dao/cartmongoosedao.js"
  class cartManager{
+    constructor(){
+        this.dao= new cartMongooseDao()
+    }
     async getall(){
-        return cartSchema.find()
+        return this.dao.getall()
     }
     async getcartbyid(id){
-        return cartSchema.findOne({_id:id})
+        return this.dao.getcartbyid(id)
     }
     async create(){
-        return cartSchema.create()
+        return this.dao.create()
     }
     async addproductbycart(pid,cid){
-        return cartSchema.insertOne( {_id:pid},{_id:cid})
+        return this.dao.addproductbycart( pid,cid)
     }
     async deletecart(cid){
-        return cartSchema.deleteOne({_id:cid})
+        return this.dao.deletecart(cid)
     }
  }
  export default cartManager
