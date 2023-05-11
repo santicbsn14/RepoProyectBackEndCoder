@@ -2,11 +2,18 @@ import express from 'express'
 import {engine} from 'express-handlebars'
 import {resolve} from 'path'
 import {Server} from 'socket.io'
+import mongoose from 'mongoose'
+import dotenv from 'dotenv'
+dotenv.config()
 import ProductManager from './Manager/ProductManager.js';
 import productRouter from './routes/products.js'
 import cartRouter from './routes/shoppingCart.js'
 void(async()=>{
     try {
+        await mongoose.connect(process.env.MONGO_DB_URI,{
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        })
         const app = express()
         app.use(express.json())
         app.use(express.urlencoded({extended:true}))

@@ -42,14 +42,13 @@
         const thumbnailTitle = document.getElementById('thumbnail').value;
         let productnew = {title:productTitle, description:descriptionProduct, code: codeProduct, price:precioProduct, thumbnail:thumbnailTitle, stock: stockProduct,category: categoryTitle}
         socket.emit('agregando_producto', productnew)
-        console.log(productnew)
         let listaproducts = document.getElementById('products')
          socket.on('productos_actualizadosadd', async (data)=>{
     listaproducts.innerHTML=''
     data.forEach(product=>{
         let li = document.createElement('li')
         li.innerText= product
-        listaproducts.appendChild(li)
+         listaproducts.appendChild(li)
     })
   })
         })
