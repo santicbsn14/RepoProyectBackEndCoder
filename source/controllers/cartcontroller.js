@@ -19,16 +19,16 @@ export const getall = async (req,res)=>{
 export const addproductbycart = async (req,res)=>{
     try {
         const manager = new cartManager()
-        let cid = +req.params.cid
-        let pid = +req.params.pid
-        res.status(201).json(await manager.addproductbycart(pid))
+        let cid = req.params.cid
+        let newproduct = req.body
+        res.status(201).json(await manager.addproductbycart(cid,newproduct))
     } catch (error) {
         console.log(error)
     }}
 export const getproductsbycartid = async (req,res)=>{
     try {
         const manager = new cartManager()
-        let cid = +req.params.cid
+        let cid = req.params.cid
         res.status(201).json(await manager.getcartbyid(cid))
     } catch (error) {
         console.log(error)

@@ -6,7 +6,11 @@ class cartManager {
     this.daoProduct = new productMongooseDao();
   }
   async getall() {
-    return this.dao.getall();
+    try {
+      return this.dao.getall();
+    } catch (error) {
+      console.log(error)
+    }
   }
   async getcartbyid(id) {
     return this.dao.getcartbyid(id);
@@ -14,8 +18,8 @@ class cartManager {
   async create() {
     return this.dao.create();
   }
-  async addproductbycart(cid, pid) {
-    let prodExis = await this.daoProduct.getproductbyid(pid);
+  async addproductbycart(cid, newproduct) {
+    let prodExis = await this.dao.addproductbycart(cid,newproduct);
 
     if (!prodExis) {
       return "Product not found";
@@ -28,7 +32,7 @@ class cartManager {
     }
     let products = cart.products;
 
-    products.push({ product: pid, quantity: 1 });
+    products.push({ product: newproduct, quantity: 1 });
     return await this.dao.updateCart(cid, cart);
   }
   async deletecart(cid) {

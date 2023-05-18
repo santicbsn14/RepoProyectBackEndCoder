@@ -1,7 +1,8 @@
 import cartSchema from "../models/cartSchema.js";
 class cartMongooseDao {
   async getall() {
-    const listcarts = await cartSchema.find({}).populate('products._id')
+    try{
+    const listcarts = await cartSchema.find({}).populate('products')
     if (!listcarts) return null;
     return listcarts.map((cart) => ({
       id: cart._id,
@@ -17,6 +18,9 @@ class cartMongooseDao {
       })),
       quantity: cart.quantity,
     }));
+  }catch(error){
+    console.log(error)
+  }
   }
   async getcartbyid(id) {
     const cartDocument = await cartSchema.findOne({ _id: id });
@@ -44,10 +48,10 @@ class cartMongooseDao {
     };
   }
 
-  async addproductbycart(pid, cid) {
-    const newproductdocument = await cartSchema.insertOne(
-      { _id: pid },
-      { _id: cid }
+  async addproductbycart(cid, newproduct) {
+    const newproductdocument = await cartSchema.findByIdAndUpdate(
+      { _id: cid },
+      newproduct
     );
     return newproductdocument;
   }

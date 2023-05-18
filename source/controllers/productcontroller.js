@@ -13,9 +13,10 @@ export const getall = async (req,res)=>{
 }
 export const getone =  async (req,res)=>{
     try{
-        const manager = new productManager()
-    let pid = +req.params.pid
-    res.status(200).json(await manager.findOne({_id:pid}))
+    const manager = new productManager()
+    let pid = req.params.pid
+    console.log(pid)
+    res.status(200).json(await manager.getproductbyid(pid))
 }catch(error){
     res.status(404).send(error)
 }
@@ -32,9 +33,9 @@ export const save = async (req,res)=>{
 export const update = async (req,res)=>{
     try{
         const manager = new productManager()
-    let pid = +req.params.pid;
+    let pid = req.params.pid;
     let obj = req.body
-    res.status(201).json(await manager.updateOne({_id:pid}, obj))
+    res.status(201).json(await manager.updateProduct(pid, obj))
     }catch(error){
        res.status(404).send(error)
     }
@@ -42,8 +43,8 @@ export const update = async (req,res)=>{
 export const deleteone = async (req,res)=>{
     try{
         const manager = new productManager()
-    let pid = +req.params.pid;
-    res.status(201).json(await manager.deleteOne({_id:pid}))
+    let pid = req.params.pid;
+    res.status(201).json(await manager.deleteproduct({_id:pid}))
     }catch(error){
        res.status(404).send(error)
 

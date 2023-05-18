@@ -13,8 +13,8 @@ class productMongooseDao {
       category: product.category,
     }));
   }
-  async getproductbyid(id) {
-    const document = await productSchema.findById(id);
+  async getproductbyid(pid) {
+    const document = await productSchema.findById(pid);
 
     return {
       id: document._id,
@@ -28,16 +28,16 @@ class productMongooseDao {
     };
   }
   async create(body) {
-    const cartDocument = await productSchema.create(body);
+    const productDocument = await productSchema.create(body);
     return {
-      id: cartDocument._id,
-      quantity: cartDocument.quantity,
-      title: cartDocument.title,
-      description: cartDocument.description,
-      code: cartDocument.code,
-      price: cartDocument.price,
-      stock: cartDocument.stock,
-      category: cartDocument.category,
+      id: productDocument._id,
+      quantity: productDocument.quantity,
+      title: productDocument.title,
+      description: productDocument.description,
+      code: productDocument.code,
+      price: productDocument.price,
+      stock: productDocument.stock,
+      category: productDocument.category,
     };
   }
 
@@ -46,13 +46,26 @@ class productMongooseDao {
     return await productSchema.deleteOne({ _id: pid });
   }
   async updateProduct(pid, body) {
-    console.log(pid);
-    document = await productSchema.findByIdAndUpdate({ _id: pid }, body, {
-      new: true,
-    });
-    if (!productDocument) {
-      return false;
+    try {
+      console.log(pid);
+      let productDocument = await productSchema.findByIdAndUpdate({ _id: pid }, body, {
+        new: true,
+      });
+      return  {
+        id: productDocument._id,
+        quantity: productDocument.quantity,
+        title: productDocument.title,
+        description: productDocument.description,
+        code: productDocument.code,
+        price: productDocument.price,
+        stock: productDocument.stock,
+        category: productDocument.category,
+      };
+
+    } catch (error) {
+      console.log(error)
     }
+
   }
 }
 export default productMongooseDao;
