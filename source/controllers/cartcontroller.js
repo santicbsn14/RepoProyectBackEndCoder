@@ -8,6 +8,14 @@ export const newCart = async (req,res)=>{
         res.status(404).send(error)
     }
 }
+export const getall = async (req,res)=>{
+    try {
+        const manager = new cartManager()
+        res.status(201).json(await manager.getall())
+    } catch (error) {
+        res.status(404).send(error)
+    }
+}
 export const addproductbycart = async (req,res)=>{
     try {
         const manager = new cartManager()

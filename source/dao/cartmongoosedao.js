@@ -1,9 +1,20 @@
 import cartSchema from "../models/cartSchema.js";
 class cartMongooseDao {
   async getall() {
-    const listcarts = await cartSchema.find({});
+    const listcarts = await cartSchema.find({}).populate('products._id')
+    if (!listcarts) return null;
     return listcarts.map((cart) => ({
       id: cart._id,
+      products: cart.products.map((product) => ({
+        id: product._id,
+        title: product.title,
+        description: product.description,
+        price: product.price,
+        thumbnail: product.thumbnail,
+        code: product.code,
+        stock: product.stock,
+        status: product.status,
+      })),
       quantity: cart.quantity,
     }));
   }
