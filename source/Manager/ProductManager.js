@@ -4,8 +4,8 @@ class productManager {
   constructor() {
     this.dao = new productMongooseDao();
   }
-  async getall() {
-    return this.dao.getall();
+  async getall({limit}) {
+    return this.dao.getall({limit});
   }
   async getproductbyid(pid) {
     return this.dao.getproductbyid(pid);

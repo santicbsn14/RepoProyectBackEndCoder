@@ -9,7 +9,7 @@ import {
   let cartRouter = Router();
   cartRouter.get('/', getall)
   cartRouter.post("/", newCart);
-  cartRouter.post("/:cid/product", addproductbycart);
+  cartRouter.post("/:cid/product/:pid", addproductbycart);
   cartRouter.get("/:cid", getproductsbycartid);
   cartRouter.delete("/:cid", deletecart);
   export default cartRouter;

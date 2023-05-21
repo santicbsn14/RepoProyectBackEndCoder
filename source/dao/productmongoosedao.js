@@ -1,8 +1,17 @@
 import productSchema from "../models/productSchema.js";
 class productMongooseDao {
-  async getall() {
-    const listproducts = await productSchema.find({});
-    return listproducts.map((product) => ({
+  async getall({limit, sort}) {
+    let query = productSchema.find();
+
+    if (limit) {
+      query = query.limit(limit);
+    }
+
+    if (sort) {
+      query = query.sort({ price: sort }); 
+    }
+    const listProducts = await query;
+    return listProducts.map((product) => ({
       id: product._id,
       quantity: product.quantity,
       title: product.title,

@@ -13,27 +13,14 @@ class cartManager {
     }
   }
   async getcartbyid(id) {
-    return this.dao.getcartbyid(id);
+    return this.dao.getOne(id);
   }
   async create() {
     return this.dao.create();
   }
-  async addproductbycart(cid, newproduct) {
-    let prodExis = await this.dao.addproductbycart(cid,newproduct);
+  async addproductbycart(cid, pid,qp) {
+    await this.dao.addproductbycart(cid,pid,qp);    
 
-    if (!prodExis) {
-      return "Product not found";
-    }
-
-    let cart = await this.dao.getcartbyid(cid);
-
-    if (!cart) {
-      return "Cart not found";
-    }
-    let products = cart.products;
-
-    products.push({ product: newproduct, quantity: 1 });
-    return await this.dao.updateCart(cid, cart);
   }
   async deletecart(cid) {
     return this.dao.deletecart(cid);

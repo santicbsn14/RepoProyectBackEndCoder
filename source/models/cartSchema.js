@@ -3,19 +3,10 @@ import mongoose,  { Schema } from "mongoose";
 const cartscollection = 'carts'
 
 const cartModel = new Schema({
-    products: {
-        type : [{
-            id:{
-                type:  ObjectId,
-                require: true
-            },
-            quantity:{
-                type: Number,
-                require: true
-            },
-        }],
-        required:[true, 'Debe ser ingresado algun producto']
-    }
-})
+    products: [{
+      id: { type: Schema.Types.ObjectId, ref: 'Product' },
+      quantity: { type: Schema.Types.Number, default: 0 }
+    }]
+  });
 
 export default mongoose.model(cartscollection, cartModel)

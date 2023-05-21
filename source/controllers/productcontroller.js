@@ -3,10 +3,9 @@ import productManager from "../Manager/ProductManager.js"
 export const getall = async (req,res)=>{
     try{
         const manager = new productManager()
-    let {limit} = req.query
-    const data = await manager.getall()
-    let result = limit ? data.slice(0, limit): data
-    res.send(result)
+        const { limit, sort } = req.query;
+        const data = await manager.getall({ limit: parseInt(limit), sort });
+    res.send(data)
 }catch(error){
     res.status(404).send(error)
 }
@@ -44,7 +43,7 @@ export const deleteone = async (req,res)=>{
     try{
         const manager = new productManager()
     let pid = req.params.pid;
-    res.status(201).json(await manager.deleteproduct({_id:pid}))
+    res.status(201).json(await manager.deleteproduct(pid))
     }catch(error){
        res.status(404).send(error)
 

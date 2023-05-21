@@ -20,8 +20,9 @@ export const addproductbycart = async (req,res)=>{
     try {
         const manager = new cartManager()
         let cid = req.params.cid
-        let newproduct = req.body
-        res.status(201).json(await manager.addproductbycart(cid,newproduct))
+        let pid = req.params.pid
+        let qp = req.query
+        res.status(201).json(await manager.addproductbycart(cid,pid,qp))
     } catch (error) {
         console.log(error)
     }}
@@ -29,7 +30,8 @@ export const getproductsbycartid = async (req,res)=>{
     try {
         const manager = new cartManager()
         let cid = req.params.cid
-        res.status(201).json(await manager.getcartbyid(cid))
+        let pid = req.params.pid
+        res.status(201).json(await manager.getcartbyid(cid, pid))
     } catch (error) {
         console.log(error)
     }}

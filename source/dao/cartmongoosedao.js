@@ -1,8 +1,10 @@
+import mongoose from 'mongoose'
 import cartSchema from "../models/cartSchema.js";
+import productSchema from "../models/productSchema.js";
 class cartMongooseDao {
   async getall() {
     try{
-    const listcarts = await cartSchema.find({}).populate('products')
+    const listcarts = await cartSchema.find({}).populate('products._id')
     if (!listcarts) return null;
     return listcarts.map((cart) => ({
       id: cart._id,
@@ -22,13 +24,20 @@ class cartMongooseDao {
     console.log(error)
   }
   }
-  async getcartbyid(id) {
-    const cartDocument = await cartSchema.findOne({ _id: id });
-    if (!cartDocument) {
-      return false;
+  async getOne(id) {
+    try {
+        const document = await cartSchema.findById(id).populate(['products']);
+        console.log(document.products)
+        if (!document) return null;
+        return {
+            id: document._id,
+            products: document.products
+        }
+    } catch (error) {
+        console.error(error);
+        throw error;
     }
-    return cartDocument;
-  }
+};
   async create() {
     const cartDocument = await cartSchema.create({});
 
@@ -48,12 +57,23 @@ class cartMongooseDao {
     };
   }
 
-  async addproductbycart(cid, newproduct) {
-    const newproductdocument = await cartSchema.findByIdAndUpdate(
-      { _id: cid },
-      newproduct
-    );
-    return newproductdocument;
+  async addproductbycart(cid,pid,qp) {
+    try {
+      let cartDocument = await cartSchema.findOne({_id:cid})
+      let product = await  productSchema.findOne({_id:pid})
+      cartDocument.products.push({id: product._id, quantity:qp})
+      await cartSchema.updateOne({_id:cid},cartDocument)
+      console.log(cartDocument)
+      return {
+        id: cartDocument._id,
+        products: cartDocument.products.map((product) => ({
+          id: product._id
+        })),
+        status: cartDocument.status,
+      };
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   async updateCart(cid, cart) {
