@@ -1,13 +1,19 @@
+//Imports de paquetes
 import express from 'express'
 import {engine} from 'express-handlebars'
 import {resolve} from 'path'
 import {Server} from 'socket.io'
 import mongoose from 'mongoose'
+import session from 'express-session'
+import MongoStore from 'connect-mongo'
+import cookieParser from 'cookie-parser'
+//Imports locales
 import dotenv from 'dotenv'
 dotenv.config()
 import ProductManager from './Manager/ProductManager.js';
-import productRouter from './routes/products.js'
+import productRouter from './routes/products.js' 
 import cartRouter from './routes/shoppingCart.js'
+import sessionRouter from './routes/session.js'
 void(async()=>{
     try {
         await mongoose.connect(process.env.MONGO_DB_URI,{
@@ -17,11 +23,22 @@ void(async()=>{
         const app = express()
         app.use(express.json())
         app.use(express.urlencoded({extended:true}))
+        app.use(cookieParser())
+        app.use(session({
+            store: MongoStore.create({
+                mongoUrl:process.env.MONGO_DB_URI,
+                ttl:15
+            }),
+            secret: 'bElGrAnO.sN',
+            resave: false,
+            saveUninitialized: false
+        }))
 
         const viewpath = resolve('source/views')
 
         app.use('/api/carts', cartRouter)
         app.use('/api/products', productRouter)
+        app.use('/api/session', sessionRouter)
 
         app.engine('handlebars', engine({
             layoutsDir: `${viewpath}/layouts`,

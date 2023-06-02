@@ -7,7 +7,7 @@ import {
   update,
   deleteone,
 } from "../controllers/productcontroller.js";
-const productManager = new ProductManager();
+//const productManager = new ProductManager();
 const productsRouter = Router();
 
 productsRouter.get("/", getall);
