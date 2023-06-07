@@ -7,14 +7,15 @@ import {
   update,
   deleteone,
 } from "../controllers/productcontroller.js";
-//const productManager = new ProductManager();
+import auth from "../middlewares/auth.js";
+
 const productsRouter = Router();
 
 productsRouter.get("/", getall);
 
-productsRouter.get("/:pid", getone);
-productsRouter.post(`/`, save);
-productsRouter.put(`/:pid`, update);
-productsRouter.delete(`/:pid`, deleteone);
+productsRouter.get("/:pid", auth, getone);
+productsRouter.post(`/`, auth, save);
+productsRouter.put(`/:pid`, auth, update);
+productsRouter.delete(`/:pid`,auth, deleteone);
 
 export default productsRouter;

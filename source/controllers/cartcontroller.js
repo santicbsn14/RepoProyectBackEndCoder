@@ -15,7 +15,8 @@ export const getall = async (req,res)=>{
 
         res.status(201).json(await manager.getall({name,page,paginate}))
     } catch (error) {
-        res.status(404).send(error)
+        res.status(404).send({message: error.message})
+        console.log(error)
     }
 }
 export const addproductbycart = async (req,res)=>{

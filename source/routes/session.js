@@ -5,7 +5,7 @@ const sessionRouter = Router()
 
 //Routes
 sessionRouter.post('/signup', signup)
-sessionRouter.post('/login', login)
-sessionRouter.get('/current', auth, current)
+sessionRouter.post('/login', login, )
+sessionRouter.get('/current', current)
 sessionRouter.post('/login2', login2)
 export default sessionRouter

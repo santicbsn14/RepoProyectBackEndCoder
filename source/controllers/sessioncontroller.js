@@ -34,19 +34,17 @@ export const login = async (req,res)=>{
 export const login2 = async (req,res)=>{
     try {
         const {email, password} = req.body
-        console.log(password)
+        
         if(!email && !password){
             throw new Error('Email and password invalid format ')
         }
         const manager = new userManager()
         const user = await manager.getuserbyemail(email)
-        console.log(user)
         if(user.password !== password ){
             return res.status(401).send({message:'Invalid password, failed login'})
         }
         const accesToken= await generateToken(user)
-
-        res.status(201).send({accesToken, message: 'Login exited'})
+        return  res.status(201).send({accesToken, message: 'Login exited'}) 
     } catch (error) {
         console.log(error)
     }

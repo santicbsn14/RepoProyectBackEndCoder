@@ -1,19 +1,28 @@
-import mongoose from 'mongoose'
+
 import cartSchema from "../models/cartSchema.js";
 import productSchema from "../models/productSchema.js";
 class cartMongooseDao {
   async paginate(querys){
     try {
       const {limit,page, name} = querys
-      const documents = cartSchema.paginate({limit,page, name})
-      documents.docs= documents.docs.map((doc)=>({
-        id: doc._id,
-        products: doc.products,
-        status: true
-      }))
-      return documents
+      const listcarts = await cartSchema.paginate({limit,page, name})
+    
+      return listcarts.docs.map((cart) => ({
+        id: cart._id,
+        products: cart.products.map((product) => ({
+          id: product._id,
+          title: product.title,
+          description: product.description,
+          price: product.price,
+          thumbnail: product.thumbnail,
+          code: product.code,
+          stock: product.stock,
+          status: product.status,
+        })),
+        quantity: cart.quantity,
+      }));
     } catch (error) {
-      throw new error
+      console.log(error)
     }
 
   }
@@ -41,30 +50,29 @@ class cartMongooseDao {
   }
   async getOne(id) {
     try {
-        const document = await cartSchema.findById(id).populate(['products.id']);
-        console.log(document.products)
+        const document = await cartSchema.findById(id).populate('products._id')
+        console.log(document)
+
         if (!document) return null;
         return {
-            id: document._id,
-            products: document.products.map((product) => ({
-              id: product._id,
-              title: product.title,
-              description: product.description,
-              price: product.price,
-              thumbnail: product.thumbnail,
-              code: product.code,
-              stock: product.stock,
-              status: product.status,
-            })),
-        }
+          id: document._id,
+          products: document.products.map((product) => ({
+            id: product._id,
+            title: product.title,
+            description: product.description,
+            price: product.price,
+            code: product.code,
+            stock: product.stock,
+            status: product.status,
+          })),
+        };
     } catch (error) {
         console.error(error);
-        throw error;
+        throw new Error();
     }
 };
   async create() {
     const cartDocument = await cartSchema.create({});
-
     return {
       id: cartDocument._id,
       products: cartDocument.products.map((product) => ({

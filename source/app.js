@@ -14,6 +14,8 @@ import ProductManager from './Manager/ProductManager.js';
 import productRouter from './routes/products.js' 
 import cartRouter from './routes/shoppingCart.js'
 import sessionRouter from './routes/session.js'
+import errorHandler from './middlewares/errorHandler.js'
+import userRouter from './routes/user.js'
 void(async()=>{
     try {
         await mongoose.connect(process.env.MONGO_DB_URI,{
@@ -39,7 +41,8 @@ void(async()=>{
         app.use('/api/carts', cartRouter)
         app.use('/api/products', productRouter)
         app.use('/api/session', sessionRouter)
-
+        app.use('/api/users', userRouter)
+        app.use(errorHandler)
         app.engine('handlebars', engine({
             layoutsDir: `${viewpath}/layouts`,
             defaultLayout:`${viewpath}/layouts/main.handlebars`

@@ -51,8 +51,13 @@ class productMongooseDao {
   }
 
   async deleteproduct(pid) {
-    console.log(pid)
-    return await productSchema.deleteOne({ _id: pid });
+    try {
+      await productSchema.deleteOne({ _id: pid });
+      return 'Producto eliminado con exito'
+    } catch (error) {
+      console.log(error)
+    }
+
   }
   async updateProduct(pid, body) {
     try {
