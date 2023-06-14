@@ -1,8 +1,9 @@
-import userSchema from "../models/userSchema.js";
-import { createHash } from "../utils/index.js";
-class userMongooseDao {
+import userSchema from "../Models/userSchema.js";
+
+class userMongooseDao{
   async getall({limit, sort}) {
-    try {
+    try
+    {
       let query = userSchema.find();
 
     if (limit) {
@@ -21,20 +22,35 @@ class userMongooseDao {
         age: user.age,
         password: user.password
     }));
-    } catch (error) {
-      console.log(error)
+    }
+    catch (error)
+    {
+      throw new Error(error)
     }
     
   }
-  async getuserbyemail(emailuser) {
-    const user = await userSchema.findOne({email: emailuser});
-    if(!user){
-      throw new Error(`User dont exist`)
-    }
-    return user
-  }
-  async create(body) {
+
+
+  async getUserByEmail(emailuser)
+  {
     try {
+      const user = await userSchema.findOne({email: emailuser});
+      if(!user){
+        throw new Error(`User dont exist`)
+      }
+      return user
+    }
+    catch(error)
+    {
+      throw new Error(error)
+    }
+  }
+
+
+  async create(body)
+  {
+    try
+    {
       const user = await userSchema.create(body);
       return {
           firstname:user.firstname,
@@ -43,31 +59,50 @@ class userMongooseDao {
           age: user.age,
           password: user.password
       };
-    } catch (error) {
-      console.log(error)
     }
-
+    catch (error)
+    {
+      throw new Error('Error')
+    }
   }
-  async getuserById(id){
-    try {
+
+
+  async getUserById(id)
+  {
+    try
+    {
       const user = await userSchema.findById({_id: id})
-return {
+      return{
         firstname:user.firstname,
         lastname: user.lastname,
         email: user.email,
         age: user.age
-    };
-    } catch (error) {
+      };
+    }
+    catch (error)
+    {
       throw new Error({error: error.message})
     }
   }
-  async deleteuser(pid) {
-    console.log(pid)
-    return await userSchema.deleteOne({ _id: pid });
+
+
+  async deleteUser(pid)
+  {
+    try
+    {
+      return await userSchema.deleteOne({ _id: pid });
+    }
+    catch (error)
+    {
+      throw new Error({error: error.message})
+    }
   }
-  async updateuser(pid, body) {
-    try {
-      console.log(pid);
+
+
+  async updateUser(pid, body)
+  {
+    try
+    {
       let user = await userSchema.findByIdAndUpdate({ _id: pid }, body, {
         new: true,
       });
@@ -79,8 +114,10 @@ return {
         password: user.password
       };
 
-    } catch (error) {
-      console.log(error)
+    }
+    catch (error)
+    {
+      throw new Error({error: error.message})
     }
 
   }

@@ -1,22 +1,35 @@
-import productMongooseDao from "../dao/productmongoosedao.js";
+import productMongooseDao from "../Dao/productMongooseDao.js";
 
 class productManager {
   constructor() {
     this.dao = new productMongooseDao();
   }
-  async getall({limit}) {
-    return this.dao.getall({limit});
+  async getall({ limit, sort, paginate })
+  {
+    return this.dao.getall({ limit, sort, paginate });
   }
-  async getproductbyid(pid) {
-    return this.dao.getproductbyid(pid);
+
+
+  async getProductById(pid)
+  {
+    return this.dao.getProductById(pid);
   }
-  async create(body) {
+
+
+  async create(body)
+  {
     return this.dao.create(body);
   }
-  async deleteproduct(pid) {
-    return this.dao.deleteproduct(pid);
+
+
+  async deleteProduct(pid)
+  {
+    return this.dao.deleteProduct(pid);
   }
-  async updateProduct(pid, body) {
+
+
+  async updateProduct(pid, body)
+  {
     return this.dao.updateProduct(pid,body);
   }
 }

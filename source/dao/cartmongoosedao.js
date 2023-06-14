@@ -1,8 +1,10 @@
 
-import cartSchema from "../models/cartSchema.js";
-import productSchema from "../models/productSchema.js";
+import cartSchema from "../Models/cartSchema.js";
+import productSchema from "../Models/productSchema.js";
+
 class cartMongooseDao {
-  async paginate(querys){
+
+    async paginate(querys){
     try {
       const {limit,page, name} = querys
       const listcarts = await cartSchema.paginate({limit,page, name})
@@ -22,10 +24,11 @@ class cartMongooseDao {
         quantity: cart.quantity,
       }));
     } catch (error) {
-      console.log(error)
+      throw new Error(error)
     }
-
   }
+
+
   async getall() {
     try{
     const listcarts = await cartSchema.find({})
@@ -43,73 +46,80 @@ class cartMongooseDao {
         status: product.status,
       })),
       quantity: cart.quantity,
-    }));
-  }catch(error){
-    console.log(error)
+     }));
+    }
+    catch(error){
+    throw new Error(error)
   }
   }
-  async getOne(id) {
-    try {
-        const document = await cartSchema.findById(id).populate('products._id')
-        console.log(document)
 
+
+  async getOne(id)
+  {
+    try
+    {
+        const document = await cartSchema.findById(id).populate('products._id')
         if (!document) return null;
         return {
           id: document._id,
-          products: document.products.map((product) => ({
-            id: product._id,
-            title: product.title,
-            description: product.description,
-            price: product.price,
-            code: product.code,
-            stock: product.stock,
-            status: product.status,
-          })),
+          products: document.products,
         };
-    } catch (error) {
-        console.error(error);
-        throw new Error();
+    }
+    catch (error)
+    {
+      throw new Error(error);
     }
 };
-  async create() {
-    const cartDocument = await cartSchema.create({});
-    return {
-      id: cartDocument._id,
-      products: cartDocument.products.map((product) => ({
-        id: product._id,
-        title: product.title,
-        description: product.description,
-        price: product.price,
-        thumbnail: product.thumbnail,
-        code: product.code,
-        stock: product.stock,
-        status: product.status,
-      })),
-      status: cartDocument.status,
-    };
+
+
+  async create()
+  {
+    try
+    {
+      const cartDocument = await cartSchema.create({})
+      return {
+        id: cartDocument._id,
+        products: cartDocument.products,
+        status: cartDocument.status,
+      };
+    }
+    catch(error)
+    {
+        throw new Error(error)
+    }
   }
 
-  async addproductbycart(cid,pid,qp) {
-    try {
+
+  async addProductByCart(cid,pid,qp)
+  {
+    try 
+    {
       let cartDocument = await cartSchema.findOne({_id:cid})
       let product = await  productSchema.findOne({_id:pid})
       let quantity = parseInt(qp.qp)
       cartDocument.products.push({_id: product._id, quantity: quantity})
-       const document = await cartSchema.findOneAndUpdate({_id:cid}, cartDocument, {new: true})
-       console.log(document)
+       const document = await cartSchema.findOneAndUpdate({_id:cid}, cartDocument, {new: true}).populate('products._id')
+       
       return {
         id: document._id,
         products: document.products,
+        quantity: document.quantity,
         status: true
       };
-    } catch (error) {
-     throw new Error
+    }
+    catch (error)
+    {
+     throw new Error('Error en el dao')
     }
   }
+
 
   async updateCart(cid, cart) {
     try {
       let newcart = await cartSchema.findOneAndUpdate({ _id: cid }, cart, {new: true})
+      if (!newcart) {
+        return "Cart not found";
+      }
       return {
         id: newcart._id,
         products: newcart.products,
@@ -120,7 +130,8 @@ class cartMongooseDao {
     }
   }
 
-  async deletecart(cid) {
+
+  async deleteCart(cid) {
     return await cartSchema.deleteOne({ _id: cid });
   }
 }

@@ -3,19 +3,18 @@ import productManager from "../Manager/ProductManager.js"
 export const getall = async (req,res)=>{
     try{
         const manager = new productManager()
-        const { limit, sort } = req.query;
-        const data = await manager.getall({ limit: parseInt(limit), sort });
-    res.send(data)
+        const { limit, sort, paginate } = req.query;
+        const data = await manager.getall({ limit: parseInt(limit), sort, paginate });
+        res.send(data)
 }catch(error){
-    res.status(404).send(error)
+    res.status(404).json({error: error.message})
 }
 }
-export const getone =  async (req,res)=>{
+export const getOne =  async (req,res)=>{
     try{
     const manager = new productManager()
     let pid = req.params.pid
-    console.log(pid)
-    res.status(200).json(await manager.getproductbyid(pid))
+    res.status(200).send(await manager.getProductById(pid))
 }catch(error){
     res.status(404).send(error)
 }
@@ -39,11 +38,11 @@ export const update = async (req,res)=>{
        res.status(404).send(error)
     }
 }
-export const deleteone = async (req,res)=>{
+export const deleteOne = async (req,res)=>{
     try{
         const manager = new productManager()
     let pid = req.params.pid;
-    res.status(201).json(await manager.deleteproduct(pid))
+    res.status(201).json(await manager.deleteProduct(pid))
     }catch(error){
        res.status(404).send(error)
 

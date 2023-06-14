@@ -1,14 +1,18 @@
 import { Router } from "express";
-import auth from "../middlewares/auth.js";
-import { getonebyId, getall, save, update, deleteone } from "../controllers/usercontroller.js";
+import auth from "../Middlewares/auth.js";
+import { getOneById, getall, save, update, deleteOne } from "../controllers/userController.js";
 
 const userRouter = Router();
 
 userRouter.get("/", getall);
-userRouter.get("/:uid", getonebyId);
-userRouter.post(`/`, save);
-userRouter.put(`/:uid`, update);
-userRouter.delete(`/:uid`,  deleteone);
+
+userRouter.get("/:uid", getOneById);
+
+userRouter.post('/', save);
+
+userRouter.put(`/:uid`, auth, update);
+
+userRouter.delete(`/:uid`,auth,  deleteOne);
 
 export default userRouter;
 

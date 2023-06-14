@@ -1,5 +1,5 @@
 
-import cartManager from '../Manager/cartmanager2.js'
+import cartManager from '../Manager/cartManager.js'
 export const newCart = async (req,res)=>{
     try{
         const manager = new cartManager()
@@ -19,22 +19,22 @@ export const getall = async (req,res)=>{
         console.log(error)
     }
 }
-export const addproductbycart = async (req,res)=>{
+export const addProductByCart = async (req,res)=>{
     try {
         const manager = new cartManager()
         let cid = req.params.cid
         let pid = req.params.pid
         let qp = req.query
-        res.status(201).json(await manager.addproductbycart(cid,pid,qp))
+        res.status(201).json(await manager.addProductByCart(cid,pid,qp))
     } catch (error) {
         console.log(error)
     }}
-export const getproductsbycartid = async (req,res)=>{
+export const getProductsByCartId = async (req,res)=>{
     try {
         const manager = new cartManager()
         let cid = req.params.cid
         let pid = req.params.pid
-        res.status(201).json(await manager.getcartbyid(cid, pid))
+        res.status(201).json(await manager.getCartById(cid, pid))
     } catch (error) {
         console.log(error)
     }
@@ -60,11 +60,11 @@ export const updateProductCart = async (req,res)=>{
         console.log(error)
     }
 }
-export const deletecart = async (req,res)=>{
+export const deleteCart = async (req,res)=>{
     try {
         const manager = new cartManager()
         let cid = req.params.cid
-        res.status(201).json(await manager.deletecart(cid))
+        res.status(201).json(await manager.deleteCart(cid))
     } catch (error) {
         console.log(error)
     }

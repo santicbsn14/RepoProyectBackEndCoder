@@ -1,21 +1,21 @@
 import { Router } from "express";
-import ProductManager from "../Manager/ProductManager.js";
+
 import {
   getall,
-  getone,
+  getOne,
   save,
   update,
-  deleteone,
+  deleteOne,
 } from "../controllers/productcontroller.js";
-import auth from "../middlewares/auth.js";
+import auth from "../Middlewares/auth.js";
 
 const productsRouter = Router();
 
 productsRouter.get("/", getall);
 
-productsRouter.get("/:pid", auth, getone);
+productsRouter.get("/:pid",  getOne);
 productsRouter.post(`/`, auth, save);
 productsRouter.put(`/:pid`, auth, update);
-productsRouter.delete(`/:pid`,auth, deleteone);
+productsRouter.delete(`/:pid`,auth, deleteOne);
 
 export default productsRouter;

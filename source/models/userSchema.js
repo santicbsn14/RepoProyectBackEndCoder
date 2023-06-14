@@ -1,4 +1,4 @@
-import mongoose,  { Schema } from "mongoose";
+import mongoose,  { Schema } from 'mongoose';
 
 const usercollection = 'users'
 
@@ -7,6 +7,8 @@ const userSchema = new Schema({
     lastname: {type: Schema.Types.String, required: true},
     email: {type: Schema.Types.String, unique:true, required: true},
     age: {type: Schema.Types.Number, required: true},
+    role: { type: Schema.Types.ObjectId, index: true, ref: 'roles' },
+    isAdmin: { type: Schema.Types.Boolean, default: false },
     password: {type: Schema.Types.String, required: true}
 })
 
