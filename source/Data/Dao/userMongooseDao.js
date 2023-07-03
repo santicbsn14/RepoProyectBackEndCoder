@@ -30,7 +30,15 @@ class userMongooseDao{
       if(!user){
         throw new Error(`User dont exist`)
       }
-      return user
+      return {
+        _id: user._id,
+        firstname: user.firstname,
+        lastname: user.lastname,
+        email: user.email,
+        age: user.age,
+        isAdmin: user.isAdmin,
+        password:user.password
+      }
     }
     catch(error)
     {
@@ -95,6 +103,7 @@ class userMongooseDao{
   {
     try
     {
+      console.log(body)
       let user = await userSchema.findByIdAndUpdate({ _id: uid }, body, {
         new: true,
       });

@@ -4,9 +4,9 @@ class cartManager {
     this.dao = container.resolve('CartDao')
     this.daoProduct = container.resolve('ProductDao')
   }
-  async getall(querys)
+  async getall(criteria)
   {
-    return this.dao.paginate(querys)
+    return this.dao.paginate(criteria)
   }
 
 

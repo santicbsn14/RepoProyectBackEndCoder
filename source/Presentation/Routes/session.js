@@ -1,5 +1,6 @@
 import { Router } from 'express';
-import { current, login, signup, forgetYourPassword} from '../Controllers/sessionController.js';
+
+import { current, login, signup, verifyForgetYourPassword, forgetYourPassword} from '../Controllers/sessionController.js';
 import auth from '../Middlewares/auth.js';
 const sessionRouter = Router()
 
@@ -7,6 +8,6 @@ const sessionRouter = Router()
 sessionRouter.post('/signup', signup)
 sessionRouter.post('/login', login, )
 sessionRouter.get('/current',auth, current)
-
-sessionRouter.put('/forgetYourPassword', forgetYourPassword)
+sessionRouter.post('/newPassword', forgetYourPassword)
+sessionRouter.post('/forgetYourPassword', verifyForgetYourPassword)
 export default sessionRouter

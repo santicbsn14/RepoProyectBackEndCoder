@@ -1,5 +1,7 @@
 import express from 'express'
 import cookieParser from 'cookie-parser'
+import cors from 'cors'
+
 //
 import productRouter from '../../Presentation/Routes/products.js' 
 import cartRouter from '../../Presentation/Routes/cart.js'
@@ -11,7 +13,7 @@ class AppExpress
 {
     constructor()
     {
-
+        
     }
     init()
     {
@@ -19,6 +21,7 @@ class AppExpress
         this.app.use(express.json())
         this.app.use(express.urlencoded({extended:true}))
         this.app.use(cookieParser())
+        this.app.use(cors())
     }
 
     build()

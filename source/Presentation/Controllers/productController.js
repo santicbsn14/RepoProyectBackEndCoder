@@ -4,8 +4,8 @@ export const getall = async (req,res)=>{
     try{
         const manager = new productManager()
         const { limit, page } = req.query;
-        const data = await manager.getall({ limit, page });
-        res.send({ status: 'success', users: data.docs, ...data, docs: undefined })
+        const data = await manager.paginate({ limit, page });
+        res.send({ status: 'success', products: data.docs, ...data, docs: undefined })
 }catch(error){
     res.status(404).json({error: error.message})
 }

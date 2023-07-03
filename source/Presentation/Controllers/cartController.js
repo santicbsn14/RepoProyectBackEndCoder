@@ -11,9 +11,9 @@ export const newCart = async (req,res, next)=>{
 export const getall = async (req,res, next)=>{
     try {
         const manager = new cartManager()
-        let { page, paginate} = req.query
+        const { limit, page } = req.query;
 
-        res.status(201).json(await manager.getall({page,paginate}))
+        res.status(201).json(await manager.getall({ limit, page }))
     } catch (error) {
         next(error)
 

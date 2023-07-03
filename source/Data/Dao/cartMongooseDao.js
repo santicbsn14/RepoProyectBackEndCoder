@@ -4,10 +4,10 @@ import productSchema from "./Models/productSchema.js";
 
 class cartMongooseDao {
 
-    async paginate(querys){
+    async paginate(criteria){
     try {
-      const {limit,page, name} = querys
-      const listcarts = await cartSchema.paginate({limit,page, name})
+      const { limit, page } = criteria;
+      const listcarts = await cartSchema.paginate({}, { limit, page })
     
       return listcarts.docs.map((cart) => ({
         id: cart._id,

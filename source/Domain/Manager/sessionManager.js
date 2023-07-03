@@ -1,6 +1,7 @@
 import {createHash, generateToken, validPassword} from "../../Shared/index.js";
 import createUserValidation from "./validations/userValidations/createUserValidation.js";
-import { mailForGetPassword } from '../../Shared/mailing.js';
+import updateUserValidation from "./validations/userValidations/updateUserValidation.js"
+import { mailForGetPassword } from "../../Shared/mailing.js";
 import loginValidation from "./validations/sessionValidation/loginValidation.js";
 import container from "../../container.js";
 
@@ -14,9 +15,7 @@ class SessionManager
   async login(email, password)
   {
     await loginValidation.parseAsync({ email, password });
-
     const user = await this.userRepository.getUserByEmail(email);
-
     if(!user)
     {
       throw new Error('User dont exist.');
@@ -46,13 +45,31 @@ class SessionManager
     return { ...user, password: undefined};
 
   }
-  async forgetYourPassword(email)
-  {
-     const user = await this.userRepository.getUserByEmail({email})
 
-     if(user){
-      mailForGetPassword({email})
-     }
+  async forgetYourPassword({email, newPassword})
+  {
+    
+    const user = await this.userRepository.getUserByEmail(email)
+    const dto = {
+      ...user,
+      password: await createHash(newPassword, 10)
+    }
+
+    let id = user._id
+    let uid = id.toString(); // Convertir el ObjectId a una cadena
+    await this.userRepository.updateUser(uid, dto)
+
+  }
+
+  async verifyForgetYourPassword({email})
+  {
+
+
+      const verifyUser = await this.userRepository.getUserByEmail(email)
+      
+      if(verifyUser)mailForGetPassword(email)
+      
+  
   }
   
 }

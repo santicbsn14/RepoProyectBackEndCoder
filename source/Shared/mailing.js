@@ -15,10 +15,6 @@ const transport = nodemailer.createTransport({
 export const mailForGetPassword = (userEmail)=>{transport.sendMail({
     from:'Santiago Viale',
     to:userEmail,
-    html:`   <form id="wordForm">
-    <label for="letter">Password</label>
-    <input type="text" id="letter" />
-    <button type="button">Descubrir</button>
-  </form>>`,
+    html:`<div>Ingresa <a href="http://127.0.0.1:5501/index.html">Aqui</a> para ingresar una nueva contraseña.</div>`,
     attachments:[]
 })}
