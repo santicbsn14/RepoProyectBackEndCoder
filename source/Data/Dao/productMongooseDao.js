@@ -18,7 +18,7 @@ class productMongooseDao {
 
 
   async getall({limit, sort}) {
-    let query = productSchema.find();
+    let query = productSchema.find().populate('owner');
 
     if (limit) {
       query = query.limit(limit);
@@ -37,6 +37,7 @@ class productMongooseDao {
       price: product.price,
       stock: product.stock,
       category: product.category,
+      owner: document.owner.email
     }));
   }
 
@@ -44,7 +45,7 @@ class productMongooseDao {
   async getProductById(pid)
   {
     try {
-      const document = await productSchema.findById(pid);
+      const document = await productSchema.findById(pid).populate('owner');
 
       return {
         id: document._id,
@@ -55,6 +56,7 @@ class productMongooseDao {
         price: document.price,
         stock: document.stock,
         category: document.category,
+        owner: document.owner.email
       };
     }
     catch(error)
@@ -69,7 +71,7 @@ class productMongooseDao {
   {
     try
     {
-      const productDocument = await productSchema.create(body);
+      const productDocument = await productSchema.create(body)
       return {
         id: productDocument._id,
         quantity: productDocument.quantity,
@@ -78,7 +80,8 @@ class productMongooseDao {
         code: productDocument.code,
         price: productDocument.price,
         stock: productDocument.stock,
-        category: productDocument.category,
+        owner:productDocument.owner,
+        category: productDocument.category
       };
     }
     catch(error)

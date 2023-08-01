@@ -3,13 +3,15 @@ import paginate from  'mongoose-paginate-v2'
 const productscollection = 'products'
 
 const productModel= new Schema({
-    title:{type:Schema.Types.String , require: true},
-    description:{type:Schema.Types.String , require: true},
-    price:{type:Schema.Types.Number , require: true},
-    code:{type:Schema.Types.String , require: true},
-    stock: {type:Schema.Types.String , require: true},
-    status: {type:Schema.Types.Boolean , require: true},
-    category:{type:Schema.Types.String , require: true}
+    title:{type:Schema.Types.String , required: true},
+    description:{type:Schema.Types.String , required: true},
+    price:{type:Schema.Types.Number , required: true},
+    img:{type: Schema.Types.String, required: true},
+    code:{type:Schema.Types.String , required: true},
+    stock: {type:Schema.Types.Number , required: true},
+    status: {type:Schema.Types.Boolean , required: true},
+    owner:{type:Schema.Types.ObjectId, ref:'users', default:'Admin'},
+    category:{type:Schema.Types.String , required: true}
 })
 productModel.plugin(paginate)
 export default mongoose.model(productscollection, productModel)

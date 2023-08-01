@@ -4,7 +4,7 @@ const authorization = (permission) =>
     {
         const user = req.user;
         
-        if (!user._doc.isAdmin && !user._doc.role?.permissions?.includes(permission))
+        if (!user.isAdmin && !user.role?.permissions?.includes(permission))
         {
             return res.status(401).send({ message: 'Not authorization!' });
         }

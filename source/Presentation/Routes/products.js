@@ -6,16 +6,20 @@ import {
   save,
   update,
   deleteOne,
-} from "../controllers/productcontroller.js";
+} from "../Controllers/productController.js";
 import auth from "../Middlewares/auth.js";
+import authorization from "../Middlewares/authorization.js"
 
 const productsRouter = Router();
 
-productsRouter.get("/", getall);
+productsRouter.get('/', getall);
 
-productsRouter.get("/:pid", auth,  getOne);
-productsRouter.post(`/`, auth, save);
-productsRouter.put(`/:pid`, auth, update);
-productsRouter.delete(`/:pid`,auth, deleteOne);
+productsRouter.get('/:pid',   getOne);
+
+productsRouter.post('/', auth, authorization('createProduct'), save);
+
+productsRouter.put('/:pid', auth, authorization('updateProduct'), update);
+
+productsRouter.delete('/:pid',auth, authorization('deleteProduct'), deleteOne);
 
 export default productsRouter;

@@ -5,8 +5,10 @@ import {
     getall,
     deleteCart,
     updateCart,
-    updateProductCart
-  } from "../Controllers/cartcontroller.js";
+    updateProductCart,
+    finalyBuy,
+    deleteProductByCart
+  } from "../Controllers/cartController.js";
   import { Router } from "express";
 import auth from "../Middlewares/auth.js";
 
@@ -25,6 +27,10 @@ import auth from "../Middlewares/auth.js";
   cartRouter.put('/:cid/product/:pid', auth, updateProductCart);
 
   cartRouter.delete("/:cid", auth, deleteCart);
+
+  cartRouter.post('/:cid/purchase', auth, finalyBuy);
+
+  cartRouter.delete('/:cid/product/:pid', auth, deleteProductByCart);
 
   export default cartRouter;
   

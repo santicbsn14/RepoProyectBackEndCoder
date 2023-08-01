@@ -6,9 +6,14 @@ import authorization from '../Middlewares/authorization.js';
 const roleRouter = Router();
 
 roleRouter.get('/', list);
+
 roleRouter.get('/:id', auth, authorization('getRole'), getOne);
+
 roleRouter.post('/',  auth, authorization('saveRole'), save);
+
 roleRouter.put('/:id', auth, authorization('updateRole'), update);
+
 roleRouter.delete('/:id', auth, authorization('deleteRole'), deleteOne);
+
 
 export default roleRouter;

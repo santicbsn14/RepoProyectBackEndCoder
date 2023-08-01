@@ -81,13 +81,3 @@ export const verifyForgetYourPassword = async (req, res, next)=>
     next(error)
   }
 }
-
-
-
-
-
-
-
-
-
-
