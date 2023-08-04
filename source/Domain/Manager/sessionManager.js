@@ -1,9 +1,11 @@
 import {createHash, generateToken, validPassword} from "../../Shared/index.js";
 import createUserValidation from "./validations/userValidations/createUserValidation.js";
-import updateUserValidation from "./validations/userValidations/updateUserValidation.js"
 import { mailForGetPassword } from "../../Shared/mailing.js";
 import loginValidation from "./validations/sessionValidation/loginValidation.js";
 import container from "../../container.js";
+import fs from 'fs';
+import Handlebars  from "handlebars";
+import {resolve} from 'path';
 
 class SessionManager
 {
@@ -29,7 +31,7 @@ class SessionManager
     }
 
     return await generateToken(user);
-  }
+  };
 
   async signup(payload)
   {
@@ -44,11 +46,32 @@ class SessionManager
 
     return { ...user, password: undefined};
 
-  }
+  };
 
-  async forgetYourPassword({email, newPassword})
+  async forgotYourPassword({email})
   {
     
+      const verifyUser = await this.userRepository.getUserByEmail(email);
+      const tokenConfirmation = await generateToken(verifyUser);
+      const urlConfirmationToken = `http://localhost:8080/api/session/viewChangePassword/?token=${tokenConfirmation}`
+      if(verifyUser)mailForGetPassword(email,urlConfirmationToken);
+      
+  
+  };
+
+  async viewChangePassword()
+  {
+    const templatePath= resolve('source/Presentation/Templates/changeforgotpassword.hbs')
+    const source = fs.readFileSync(templatePath).toString()
+    const template = Handlebars.compile(source)
+    const html = template()
+    return html
+  
+  }
+
+  async changeForgotYourPassword({email, newPassword,confirmPassword, token})
+  {
+    if(newPassword===confirmPassword){
     const user = await this.userRepository.getUserByEmail(email)
     const dto = {
       ...user,
@@ -56,22 +79,10 @@ class SessionManager
     }
 
     let id = user._id
-    let uid = id.toString(); // Convertir el ObjectId a una cadena
-    await this.userRepository.updateUser(uid, dto)
-
+    let uid = id.toString();
+    if(token)await this.userRepository.updateUser(uid, dto)
+  };
   }
-
-  async verifyForgetYourPassword({email})
-  {
-
-
-      const verifyUser = await this.userRepository.getUserByEmail(email)
-      
-      if(verifyUser)mailForGetPassword(email)
-      
-  
-  }
-  
 }
 
 export default SessionManager;

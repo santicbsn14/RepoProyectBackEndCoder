@@ -1,6 +1,9 @@
 import nodemailer from 'nodemailer'
 import dotenv from 'dotenv'
 dotenv.config()
+import fs from 'fs'
+import Handlebars  from "handlebars";
+import {resolve} from 'path';
 
 const transport = nodemailer.createTransport({
     service:'gmail',
@@ -11,10 +14,22 @@ const transport = nodemailer.createTransport({
     }
 })
 
-  
-export const mailForGetPassword = (userEmail)=>{transport.sendMail({
-    from:'Santiago Viale',
-    to:userEmail,
-    html:`<div>Ingresa <a href="http://127.0.0.1:5501/index.html">Aqui</a> para ingresar una nueva contraseña.</div>`,
-    attachments:[]
-})}
+const templatePath= resolve('source/Presentation/Templates/forgotpassword.hbs')
+const source = fs.readFileSync(templatePath).toString()
+const template = Handlebars.compile(source)
+export const mailForGetPassword = (userEmail, urlConfirmationToken) => {
+    const html = template({ userEmail, urlConfirmationToken });
+    
+    transport.sendMail({
+        from: 'Santiago Viale',
+        to: userEmail,
+        html: html,
+        attachments: []
+    });
+};
+
+
+
+
+
+
