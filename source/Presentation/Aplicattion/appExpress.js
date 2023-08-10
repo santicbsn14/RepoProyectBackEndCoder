@@ -3,6 +3,8 @@ import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import swaggerJSDoc from 'swagger-jsdoc'
 import swaggerUiExpress from 'swagger-ui-express'
+import dotenv from 'dotenv'
+dotenv.config()
 
 //
 import productRouter from '../../Presentation/Routes/products.js' 
@@ -42,8 +44,8 @@ class AppExpress
 
     listen()
     {
-        this.app.listen(8080,()=>{
-            console.log('escuchando en puerto 8080')})
+        this.app.listen(process.env.PORT,()=>{
+            console.log(`escuchando en puerto ${process.env.PORT}`)})
     }
 
 }
