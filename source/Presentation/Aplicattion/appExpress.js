@@ -11,7 +11,7 @@ import sessionRouter from '../../Presentation/Routes/session.js'
 import errorHandler from '../../Presentation/Middlewares/errorHandler.js'
 import userRouter from '../../Presentation/Routes/user.js'
 import roleRouter from '../../Presentation/Routes/role.js'
-import swaggerOptions  from '../../Utils/swagger.config.js'
+import {swaggerOptions } from '../../Utils/swagger.config.js'
 
 class AppExpress
 {
