@@ -19,7 +19,7 @@ class AppExpress
 {
     constructor()
     {
-        
+        this.server= null
     }
     init()
     {
@@ -28,6 +28,22 @@ class AppExpress
         this.app.use(express.urlencoded({extended:true}))
         this.app.use(cookieParser())
         this.app.use(cors())
+    }
+
+    callback()
+    {
+        return this.app
+    }
+
+    async connectDb()
+    {
+        const db = DbFactory.create(process.env.DB);
+        db.init(process.env.DB_URI);
+    }
+    close()
+    {
+        this.server.close()
+        // return this.app.close()
     }
 
     build()
@@ -45,6 +61,12 @@ class AppExpress
     listen()
     {
         this.app.listen(process.env.PORT,()=>{
+            console.log(`escuchando en puerto ${process.env.PORT}`)})
+    }
+
+    start()
+    {
+        this.server = this.app.listen(process.env.PORT,()=>{
             console.log(`escuchando en puerto ${process.env.PORT}`)})
     }
 

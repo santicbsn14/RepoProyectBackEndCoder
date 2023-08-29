@@ -1,0 +1,112 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: API de Usuarios
+  description: API para administrar usuarios
+
+paths:
+  /api/users:
+    post:
+      summary: Crea un nuevo usuario
+      description: Crea un nuevo usuario con los datos proporcionados en el cuerpo de la solicitud.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: user
+          description: Datos del nuevo usuario
+          required: true
+          schema:
+            $ref: '#/definitions/UserInput'
+      responses:
+        201:
+          description: Usuario creado exitosamente
+        400:
+          description: Solicitud incorrecta
+
+    get:
+      summary: Obtiene una lista de usuarios
+      description: Obtiene una lista de todos los usuarios o un usuario específico si se proporciona el ID.
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: id
+          description: ID del usuario a obtener
+          type: string
+      responses:
+        200:
+          description: Lista de usuarios obtenida exitosamente
+
+  /api/users/{id}:
+    get:
+      summary: Obtiene un usuario por ID
+      description: Obtiene un usuario específico por su ID.
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          description: ID del usuario a obtener
+          required: true
+          type: string
+      responses:
+        200:
+          description: Usuario obtenido exitosamente
+        404:
+          description: Usuario no encontrado
+
+    put:
+      summary: Actualiza un usuario
+      description: Actualiza los datos de un usuario específico utilizando el ID proporcionado en la URL y los nuevos datos en el cuerpo de la solicitud.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          description: ID del usuario a actualizar
+          required: true
+          type: string
+        - in: body
+          name: user
+          description: Datos actualizados del usuario
+          required: true
+          schema:
+            $ref: '#/definitions/UserInput'
+      responses:
+        200:
+          description: Usuario actualizado exitosamente
+        400:
+          description: Solicitud incorrecta
+        404:
+          description: Usuario no encontrado
+
+    delete:
+      summary: Borra un usuario por ID
+      description: Borra un usuario específico por su ID.
+      parameters:
+        - in: path
+          name: id
+          description: ID del usuario a borrar
+          required: true
+          type: string
+      responses:
+        204:
+          description: Usuario borrado exitosamente
+        404:
+          description: Usuario no encontrado
+
+definitions:
+  UserInput:
+    type: object
+    properties:
+      name:
+        type: string
+      email:
+        type: string
+      age:
+        type: integer

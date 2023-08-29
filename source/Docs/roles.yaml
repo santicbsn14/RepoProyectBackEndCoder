@@ -1,0 +1,112 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: API de roles
+  description: API para administrar roles
+
+paths:
+  /api/roles:
+    post:
+      summary: Crea un nuevo rol
+      description: Crea un nuevo rol con los datos proporcionados en el cuerpo de la solicitud.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: role
+          description: Datos del nuevo rol
+          required: true
+          schema:
+            $ref: '#/definitions/roleInput'
+      responses:
+        201:
+          description: rol creado exitosamente
+        400:
+          description: Solicitud incorrecta
+
+    get:
+      summary: Obtiene una lista de roles
+      description: Obtiene una lista de todos los roles o un rol específico si se proporciona el ID.
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: id
+          description: ID del rol a obtener
+          type: string
+      responses:
+        200:
+          description: Lista de roles obtenida exitosamente
+
+  /api/roles/{id}:
+    get:
+      summary: Obtiene un rol por ID
+      description: Obtiene un rol específico por su ID.
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          description: ID del rol a obtener
+          required: true
+          type: string
+      responses:
+        200:
+          description: rol obtenido exitosamente
+        404:
+          description: rol no encontrado
+
+    put:
+      summary: Actualiza un rol
+      description: Actualiza los datos de un rol específico utilizando el ID proporcionado en la URL y los nuevos datos en el cuerpo de la solicitud.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          description: ID del rol a actualizar
+          required: true
+          type: string
+        - in: body
+          name: role
+          description: Datos actualizados del rol
+          required: true
+          schema:
+            $ref: '#/definitions/roleInput'
+      responses:
+        200:
+          description: rol actualizado exitosamente
+        400:
+          description: Solicitud incorrecta
+        404:
+          description: rol no encontrado
+
+    delete:
+      summary: Borra un rol por ID
+      description: Borra un rol específico por su ID.
+      parameters:
+        - in: path
+          name: id
+          description: ID del rol a borrar
+          required: true
+          type: string
+      responses:
+        204:
+          description: rol borrado exitosamente
+        404:
+          description: rol no encontrado
+
+definitions:
+  roleInput:
+    type: object
+    properties:
+      name:
+        type: string
+      email:
+        type: string
+      age:
+        type: integer

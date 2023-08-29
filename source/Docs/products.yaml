@@ -1,0 +1,106 @@
+paths:
+  /api/products:
+    post:
+      summary: Crea un nuevo producto
+      description: Crea un nuevo producto con los datos proporcionados en el cuerpo de la solicitud.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: product
+          description: Datos del nuevo producto
+          required: true
+          schema:
+            $ref: '#/definitions/productInput'
+      responses:
+        201:
+          description: producto creado exitosamente
+        400:
+          description: Solicitud incorrecta
+
+    get:
+      summary: Obtiene una lista de productos
+      description: Obtiene una lista de todos los productos o un producto específico si se proporciona el ID.
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: id
+          description: ID del producto a obtener
+          type: string
+      responses:
+        200:
+          description: Lista de productos obtenida exitosamente
+
+  /api/products/{id}:
+    get:
+      summary: Obtiene un producto por ID
+      description: Obtiene un producto específico por su ID.
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          description: ID del producto a obtener
+          required: true
+          type: string
+      responses:
+        200:
+          description: producto obtenido exitosamente
+        404:
+          description: producto no encontrado
+
+    put:
+      summary: Actualiza un producto
+      description: Actualiza los datos de un producto específico utilizando el ID proporcionado en la URL y los nuevos datos en el cuerpo de la solicitud.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          description: ID del producto a actualizar
+          required: true
+          type: string
+        - in: body
+          name: product
+          description: Datos actualizados del producto
+          required: true
+          schema:
+            $ref: '#/definitions/productInput'
+      responses:
+        200:
+          description: producto actualizado exitosamente
+        400:
+          description: Solicitud incorrecta
+        404:
+          description: producto no encontrado
+
+    delete:
+      summary: Borra un producto por ID
+      description: Borra un producto específico por su ID.
+      parameters:
+        - in: path
+          name: id
+          description: ID del producto a borrar
+          required: true
+          type: string
+      responses:
+        204:
+          description: producto borrado exitosamente
+        404:
+          description: producto no encontrado
+
+definitions:
+  productInput:
+    type: object
+    properties:
+      name:
+        type: string
+      email:
+        type: string
+      age:
+        type: integer

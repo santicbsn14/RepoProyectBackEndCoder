@@ -17,5 +17,9 @@ class DbMongoose{
     {
         await this.connection.disconnect()
     }
+    async drop()
+    {
+      await this.connection.db.dropDatabase();
+    }
 }
 export default DbMongoose
