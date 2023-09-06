@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { current, login, signup, forgotYourPassword, changeForgotYourPassword, viewChangePassword} from '../Controllers/sessionController.js';
+import { current, login, signup, forgotYourPassword, changeForgotYourPassword, viewChangePassword, logout} from '../Controllers/sessionController.js';
 import auth from '../Middlewares/auth.js';
 import authorization from '../Middlewares/authorization.js';
 const sessionRouter = Router()
@@ -8,13 +8,15 @@ const sessionRouter = Router()
 //Routes
 sessionRouter.post('/signup', signup);
 
-sessionRouter.post('/login', login, );
+sessionRouter.post('/login', login );
+
+sessionRouter.post('/logout', logout);
 
 sessionRouter.get('/current',auth, current);
 
 sessionRouter.post('/forgotYourPassword', forgotYourPassword);
 
-sessionRouter.get('/viewChangePassword', viewChangePassword)
+sessionRouter.get('/viewChangePassword', viewChangePassword);
 
 sessionRouter.post('/changeForgotYourPassword', changeForgotYourPassword);
 

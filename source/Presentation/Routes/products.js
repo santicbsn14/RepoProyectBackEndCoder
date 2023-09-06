@@ -14,9 +14,9 @@ const productsRouter = Router();
 
 productsRouter.get('/', getall);
 
-productsRouter.get('/:pid',   getOne);
+productsRouter.get('/:pid', getOne);
 
-productsRouter.post('/', auth, authorization('createProduct'), save);
+productsRouter.post('/',auth, authorization('saveProduct'),  save);
 
 productsRouter.put('/:pid', auth, authorization('updateProduct'), update);
 

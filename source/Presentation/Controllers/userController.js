@@ -1,7 +1,7 @@
 import userManager from "../../Domain/Manager/userManager.js"
 import { createHash } from "../../Shared/index.js";
 
-export const getall = async (req,res)=>
+export const getall = async (req,res, next)=>
 {
     try
     {

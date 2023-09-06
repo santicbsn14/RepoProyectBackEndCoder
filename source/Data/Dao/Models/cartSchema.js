@@ -5,9 +5,10 @@ import paginate from  'mongoose-paginate-v2';
 const cartscollection = 'carts'
 
 const cartModel = new Schema({
+  user:{ type: Schema.Types.ObjectId, ref: 'users' },
     products: [{
-      _id: { type: Schema.Types.ObjectId, ref: 'products' },
-      quantity: { type: Schema.Types.Number, default: 0 }
+      _id: { type: Schema.Types.ObjectId, ref: 'products', required: true },
+      quantity: { type: Schema.Types.Number, required: true }
     }]
   })
 

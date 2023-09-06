@@ -4,7 +4,8 @@ class RoleMongooseDao
 {
   async paginate(criteria)
   {
-    const { limit, page } = criteria;
+    let { limit, page } = criteria;
+    if(!limit) limit=4
     const roleDocuments = await roleSchema.paginate({}, { limit, page });
 
     roleDocuments.docs = roleDocuments.docs.map(document => ({

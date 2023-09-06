@@ -5,10 +5,22 @@ class productMongooseDao {
   {
     try
     {
-        const { limit, page } = criteria;
+        let { limit, page } = criteria;
+        if(!limit) limit=4
         const listProducts = await productSchema.paginate({}, { limit, page })
         
-        return listProducts
+        return listProducts.docs.map(document => ({
+          id: document._id,
+          quantity: document.quantity,
+          title: document.title,
+          description: document.description,
+          code: document.code,
+          price: document.price,
+          stock: document.stock,
+          category: document.category,
+          
+        }));
+
     }
     catch(error)
     {
@@ -56,7 +68,8 @@ class productMongooseDao {
         price: document.price,
         stock: document.stock,
         category: document.category,
-        owner: document.owner.email
+        owner: document.owner,
+        status: document.status
       };
     }
     catch(error)

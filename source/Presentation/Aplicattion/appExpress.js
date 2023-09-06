@@ -14,16 +14,20 @@ import errorHandler from '../../Presentation/Middlewares/errorHandler.js'
 import userRouter from '../../Presentation/Routes/user.js'
 import roleRouter from '../../Presentation/Routes/role.js'
 import {swaggerOptions } from '../../Utils/swagger.config.js'
+import DbFactory from '../../Data/Dao/Factories/dbFactory.js'
 
 class AppExpress
 {
     constructor()
     {
+        this.app = express()
         this.server= null
+        this.init()
+        this.build()
+        this.connectDb()
     }
     init()
     {
-        this.app = express()
         this.app.use(express.json())
         this.app.use(express.urlencoded({extended:true}))
         this.app.use(cookieParser())

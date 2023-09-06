@@ -6,7 +6,7 @@ export const getall = async (req,res)=>{
         const manager = new productManager()
         const { limit, page } = req.query;
         const data = await manager.paginate({ limit, page });
-        res.send({ status: 'success', products: data.docs, ...data, docs: undefined })
+        res.status(200).send({ status: 'success', products: data, ...data, docs: undefined })
     } 
     catch(error)
     {

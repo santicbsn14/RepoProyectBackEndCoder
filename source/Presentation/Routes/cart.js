@@ -14,7 +14,7 @@ import auth from "../Middlewares/auth.js";
 
   let cartRouter = Router();
 
-  cartRouter.get('/', getall);
+  cartRouter.get('/',auth, getall);
 
   cartRouter.post("/", auth, newCart);
 

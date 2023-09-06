@@ -17,42 +17,92 @@ class cartManager {
   }
 
 
-  async create() 
+  async create(data) 
   {
-    return this.dao.create();
+    return this.dao.create(data);
   }
 
 
   async addProductByCart(cid, pid,qp) 
   {
-    return await this.dao.addProductByCart(cid,pid,qp);    
+    let cart = await this.dao.getOne(cid);
+
+    let product = await this.daoProduct.getProductById(pid);
+    
+    let quantity = parseInt(qp.qp);
+  
+    if(isNaN(quantity) || quantity < 1 ){ throw new Error('Es obligatorio ingresar la cantidad de cada producto')}
+
+    let existingProduct = cart.products.find((product) => product._id._id?.toString() === pid);
+    if(existingProduct)
+    {
+      existingProduct.quantity += quantity;
+    }else
+    {
+      if(product.stock< quantity)throw new Error(`No disponemos de stock del producto ingresado ${product}`);
+      cart.products.push({ _id: product.id, quantity: quantity });
+    }
+    
+   
+    let updatedQuantity = product.stock - quantity
+    let productUpdated = {...product, stock: updatedQuantity, status: updatedQuantity === 0 ? false : product.status}
+    await this.daoProduct.updateProduct(pid, productUpdated)
+    let cartUpdated = {
+      id: cart._id,
+      products:cart.products,
+      quantity: cart.quantity,
+      }
+     return await this.dao.updateCart(cid, cartUpdated)
   }
 
 
   async finalyBuy(cid, transInfoTicket)
   {
-    let productsUpdated = await this.dao.finalyBuy(cid);
+    let cart = await this.dao.getOne(cid);
+
+    let updatedProducts = []
+
+      for (const item of cart.products){
+        let product = item._id;
+
+        let quantityInCart = item.quantity;
+
+        if(quantityInCart> product.stock) throw new Error(`No contamos con el stock de este producto ${product}`)
+        
+        let stock = item._id.stock;
+
+        let updatedStock = stock-quantityInCart;
+
+        product.stock= updatedStock
+        
+        updatedProducts.push({product, quantity: item.quantity})
+      }
+   
     
     let priceTotal = 0;
 
-    
-    for (const product of productsUpdated){
+    for (const product of updatedProducts){
       let pid = product.product._id;
       
       priceTotal += product.product.price*product.quantity;
-
       let body = { ...product.product };
+      console.log(product.product.stock)
+      if(product.product.stock===0) body = {...product.product, status: false}
       delete body._id;
       await this.daoProduct.updateProduct(pid, body)
     }
     
-    let ticket = await this.daoTicket.create({...transInfoTicket, amount:priceTotal});
-    
-    let returnTicket = await this.daoTicket.getOne(ticket.id)
+    let ticket = await this.daoTicket.create({...transInfoTicket, purchaser:transInfoTicket.purchaser.id, amount:priceTotal});
+    await this.dao.deleteCart(cid)
 
-    return {message: 'Compra realizada con exito', returnTicket}
+    return {message: 'Estas a solo un paso de realizar la compra!', ticket}
   }
 
+
+  async updateProductCart(cid,pid,quantity)
+  {
+    return this.dao.updatedProductCart(cid,pid,quantity)
+  }
 
   async deleteCart(cid) 
   {
@@ -63,12 +113,6 @@ class cartManager {
   async updateCart(cid,cart)
   {
     return this.dao.updateCart(cid,cart)
-  }
-
-
-  async updateProductCart(cid,cart,productQuantity)
-  {
-    return await this.dao.updateCart(cid, cart);
   }
 
 

@@ -85,12 +85,27 @@ export const login = async (req,res, next)=>
 
         const manager = new SessionManager();
         const accessToken = await manager.login(email, password);
-    
-        return  res.status(201).send({accessToken, message: 'Login exited'}) 
+        return res.cookie('accessToken', accessToken, {
+          maxAge: 60 * 60 * 1000,
+          httpOnly: true
+      }).status(201).send({status: "success", message: "login exitoso", accessToken});
     }
     catch (error)
     {
         next(error)
     }
+};
+
+export const logout = (req, res) => {
+  try
+  {
+    res.clearCookie('accessToken');
+
+    res.status(200).send({ status: 'success', message: 'Logout exitoso' });
+  } catch (error)
+  {
+    next(error)
+  }
+
 };
 

@@ -4,13 +4,17 @@ class userMongooseDao{
   async getall(criteria) {
     try
     {
-      const { limit, page } = criteria;
+      let { limit, page } = criteria;
+      if(!limit) limit = 30
       const userDocuments = await userSchema.paginate({}, { limit, page });
   
-      userDocuments.docs = userDocuments.docs.map(document => ({
-        id: document._id,
-        name: document.name,
-        permissions: document.permissions
+      userDocuments.docs = userDocuments.docs.map(user => ({
+        id: user._id,
+        firstname: user.firstname,
+        lastname: user.lastname,
+        email: user.email,
+        age: user.age,
+        isAdmin: user.isAdmin,
       }));
   
       return userDocuments;
@@ -31,13 +35,13 @@ class userMongooseDao{
         throw new Error(`User dont exist`)
       }
       return {
-        _id: user._id,
+        id: user._id,
         firstname: user.firstname,
         lastname: user.lastname,
         email: user.email,
         age: user.age,
+        password: user.password,
         isAdmin: user.isAdmin,
-        password:user.password
       }
     }
     catch(error)
@@ -86,11 +90,11 @@ class userMongooseDao{
   }
 
 
-  async deleteUser(pid)
+  async deleteUser(uid)
   {
     try
     {
-      return await userSchema.deleteOne({ _id: pid });
+      return await userSchema.deleteOne({ _id: uid });
     }
     catch (error)
     {
@@ -103,7 +107,6 @@ class userMongooseDao{
   {
     try
     {
-      console.log(body)
       let user = await userSchema.findByIdAndUpdate({ _id: uid }, body, {
         new: true,
       });
@@ -114,7 +117,7 @@ class userMongooseDao{
     }
     catch (error)
     {
-      throw new Error({error: error.message})
+      throw new Error(error)
     }
 
   }

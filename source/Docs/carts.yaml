@@ -1,0 +1,106 @@
+paths:
+  /api/carts:
+    post:
+      summary: Crea un nuevo carrito
+      description: Crea un nuevo carrito con los datos proporcionados en el cuerpo de la solicitud.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: cart
+          description: Datos del nuevo carrito
+          required: true
+          schema:
+            $ref: '#/definitions/cartInput'
+      responses:
+        201:
+          description: carrito creado exitosamente
+        400:
+          description: Solicitud incorrecta
+
+    get:
+      summary: Obtiene una lista de carritos
+      description: Obtiene una lista de todos los carritos o un carrito específico si se proporciona el ID.
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: id
+          description: ID del carrito a obtener
+          type: string
+      responses:
+        200:
+          description: Lista de carritos obtenida exitosamente
+
+  /api/carts/{id}:
+    get:
+      summary: Obtiene un carrito por ID
+      description: Obtiene un carrito específico por su ID.
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          description: ID del carrito a obtener
+          required: true
+          type: string
+      responses:
+        200:
+          description: carrito obtenido exitosamente
+        404:
+          description: carrito no encontrado
+
+    put:
+      summary: Actualiza un carrito
+      description: Actualiza los datos de un carrito específico utilizando el ID proporcionado en la URL y los nuevos datos en el cuerpo de la solicitud.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: id
+          description: ID del carrito a actualizar
+          required: true
+          type: string
+        - in: body
+          name: cart
+          description: Datos actualizados del carrito
+          required: true
+          schema:
+            $ref: '#/definitions/cartInput'
+      responses:
+        200:
+          description: carrito actualizado exitosamente
+        400:
+          description: Solicitud incorrecta
+        404:
+          description: carrito no encontrado
+
+    delete:
+      summary: Borra un carrito por ID
+      description: Borra un carrito específico por su ID.
+      parameters:
+        - in: path
+          name: id
+          description: ID del carrito a borrar
+          required: true
+          type: string
+      responses:
+        204:
+          description: carrito borrado exitosamente
+        404:
+          description: carrito no encontrado
+
+definitions:
+  cartInput:
+    type: object
+    properties:
+      name:
+        type: string
+      email:
+        type: string
+      age:
+        type: integer

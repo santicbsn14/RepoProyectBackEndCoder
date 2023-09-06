@@ -5,7 +5,8 @@ export const newCart = async (req,res, next)=>
     try
     {
         const manager = new cartManager()
-        res.status(201).json(await manager.create())
+        let data = req.body
+        res.status(201).json(await manager.create(data))
     }
     catch(error)
     {
@@ -98,8 +99,8 @@ export const updateProductCart = async (req,res, next)=>
         const manager = new cartManager()
         let cid = req.params.cid
         let pid = req.params.pid
-        let productQuantity = req.body
-        res.status(201).json(await manager.updateCart(cid,pid,productQuantity))
+        let quantity = req.body.quantity
+        res.status(201).json(await manager.updateProductCart(cid,pid,quantity))
     } 
     catch (error) 
     {
