@@ -13,13 +13,13 @@ import auth from "../Middlewares/auth.js";
 
   let cartRouter = Router();
 
-  cartRouter.get('/',auth, getall);
+  cartRouter.get('/', getall);
 
-  cartRouter.post("/", auth, newCart);
+  cartRouter.post("/",  newCart);
 
-  cartRouter.post("/:cid/product/:pid", addProductByCart);
+  cartRouter.post("/:cid/product/:pid",auth, addProductByCart);
 
-  cartRouter.get("/:cid", getProductsByCartId);
+  cartRouter.get("/:cid",auth, getProductsByCartId);
 
   cartRouter.put('/:cid', auth, updateCart);
 

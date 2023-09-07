@@ -4,18 +4,17 @@ import { getOneById, getall, save, update, deleteOne } from "../Controllers/user
 
 const userRouter = Router();
 
-userRouter.get("/", getall);
+userRouter.get("/", auth, getall);
 
 userRouter.get("/:uid", getOneById);
 
-userRouter.post('/', save);
+userRouter.post('/',  authorization('saveUser'), save);
 
-userRouter.put(`/:uid`, auth, update);
+userRouter.put(`/:uid`, auth,  authorization('updateUser'), update);
 
-userRouter.delete(`/:uid`,auth,  deleteOne);
+userRouter.delete(`/:uid`,auth, authorization('deleteUser'),  deleteOne);
 
 export default userRouter;
 
 
 
-// export default sessionRouter
