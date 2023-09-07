@@ -53,7 +53,7 @@ export const changeForgotYourPassword = async (req,res, next)=>{
     let token = params
     const manager = new SessionManager()
     const user = await manager.changeForgotYourPassword({newPassword,email,confirmPassword, token})
-    res.status(201).send({status:'success', message:'Password'})
+    res.status(201).send({status:'success', message:'Password Changed'})
   } catch (error) {
     next(error)
   }

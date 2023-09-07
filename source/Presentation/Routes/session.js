@@ -18,6 +18,6 @@ sessionRouter.post('/forgotYourPassword', forgotYourPassword);
 
 sessionRouter.get('/viewChangePassword', viewChangePassword);
 
-sessionRouter.post('/changeForgotYourPassword', changeForgotYourPassword);
+sessionRouter.put('/changeForgotYourPassword', changeForgotYourPassword);
 
 export default sessionRouter
