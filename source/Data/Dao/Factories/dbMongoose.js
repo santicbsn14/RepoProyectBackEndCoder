@@ -9,7 +9,7 @@ class DbMongoose{
                 useUnifiedTopology: true
             })
         } catch (error) {
-            console.log(error)
+            throw new Error(error, 'Error en la conección a la base de datos')
         }
 
     }

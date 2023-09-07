@@ -5,7 +5,6 @@ import {
     getall,
     deleteCart,
     updateCart,
-    updateProductCart,
     finalyBuy,
     deleteProductByCart
   } from "../Controllers/cartController.js";
@@ -23,8 +22,6 @@ import auth from "../Middlewares/auth.js";
   cartRouter.get("/:cid", getProductsByCartId);
 
   cartRouter.put('/:cid', auth, updateCart);
-
-  cartRouter.put('/:cid/product/:pid', auth, updateProductCart);
 
   cartRouter.delete("/:cid", auth, deleteCart);
 

@@ -92,21 +92,6 @@ export const updateCart = async (req,res, next)=>
     }
 }
 
-export const updateProductCart = async (req,res, next)=>
-{
-    try 
-    {
-        const manager = new cartManager()
-        let cid = req.params.cid
-        let pid = req.params.pid
-        let quantity = req.body.quantity
-        res.status(201).json(await manager.updateProductCart(cid,pid,quantity))
-    } 
-    catch (error) 
-    {
-        next(error)
-    }
-}
 
 export const deleteCart = async (req,res,next)=>
 {

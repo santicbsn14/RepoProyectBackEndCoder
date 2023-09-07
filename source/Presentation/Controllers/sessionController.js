@@ -96,10 +96,11 @@ export const login = async (req,res, next)=>
     }
 };
 
-export const logout = (req, res) => {
+export const logout = async (req, res) => {
   try
   {
-    res.clearCookie('accessToken');
+    const manager = new SessionManager();
+    const user = await manager.logout();
 
     res.status(200).send({ status: 'success', message: 'Logout exitoso' });
   } catch (error)

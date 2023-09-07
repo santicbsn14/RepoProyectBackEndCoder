@@ -99,11 +99,6 @@ class cartManager {
   }
 
 
-  async updateProductCart(cid,pid,quantity)
-  {
-    return this.dao.updatedProductCart(cid,pid,quantity)
-  }
-
   async deleteCart(cid) 
   {
     return this.dao.deleteCart(cid);

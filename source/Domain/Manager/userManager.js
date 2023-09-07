@@ -46,7 +46,22 @@ class userManager{
     async updateUser(uid, body) 
     {
       await updateUserValidation.parseAsync({...body, uid})
-      return this.dao.updateuser(uid,body);
+      return this.dao.updateUser(uid,body);
+    }
+
+    async automaticUsersDelete()
+    {
+      const currentDate = new Date();
+      const twoDaysAgo = new Date();
+      let body = {status: false}
+      twoDaysAgo.setDate(currentDate.getDate() - 2);
+      let daysAgo = twoDaysAgo.getDate()
+      let users = this.userRepository.getall()
+      for(const user of users){
+        let uid = user.id
+        let lastLogin = user.lastLogin
+        if(daysAgo=== lastLogin.getDate())  await this.dao.updateUser(uid, body)
+      }
     }
 }
 export default userManager

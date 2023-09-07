@@ -44,8 +44,7 @@ class cartMongooseDao {
     {
       throw new Error(error);
     }
-};
-
+  };
 
   async create(data)
   {
@@ -86,15 +85,6 @@ class cartMongooseDao {
     {
       throw new Error(err);
     }
-  }
-
-  async updateProductCart(cid, pid, quantity)
-  {
-    const document = await cartModel.findOneAndUpdate(
-      { _id: cid, 'products._id': pid },
-      { $set: { 'products.$.quantity': quantity } },
-      { new: true }
-    );
   }
 
   async deleteCart(cid) {

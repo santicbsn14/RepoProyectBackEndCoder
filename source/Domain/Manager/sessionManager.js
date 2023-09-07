@@ -22,7 +22,7 @@ class SessionManager
     {
       throw new Error('User dont exist.');
     }
-    console.log(user)
+
     const isHashedPassword = await validPassword(password, user.password);
 
     if (!isHashedPassword)
@@ -34,6 +34,14 @@ class SessionManager
     await this.userRepository.updateUser(uid, body)
     return await generateToken(user);
   };
+
+  async logout()
+  {
+    res.clearCookie('accessToken');
+    let body = {lastLogin: new Date()}
+    await this.userRepository.updateUser(uid, body)
+  }
+
 
   async signup(payload)
   {
@@ -84,20 +92,6 @@ class SessionManager
     let uid = id.toString();
     if(token)await this.userRepository.updateUser(uid, dto)
   };
-  }
-
-  async automaticUsersDelete()
-  {
-    const currentDate = new Date();
-    const twoDaysAgo = new Date();
-    twoDaysAgo.setDate(currentDate.getDate() - 2);
-    let daysAgo = twoDaysAgo.getDate()
-    let users = this.userRepository.getall()
-    for(const user of users){
-      let uid = user.id
-      let lastLogin = user.lastLogin
-      if(daysAgo=== lastLogin.getDate()) await this.userRepository.deleteUser(uid)
-    }
   }
 }
 

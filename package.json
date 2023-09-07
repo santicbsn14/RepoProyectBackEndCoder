@@ -5,6 +5,7 @@
   "main": "source/app.js",
   "scripts": {
     "start": "nodemon",
+    "command": "node source/command.js",
     "test": "cross-env NODE_OPTIONS=--experimental-vm-modules npx jest"
   },
   "type": "module",
@@ -19,6 +20,7 @@
     "awilix": "^8.0.1",
     "bcrypt": "^5.1.0",
     "chai": "^4.3.8",
+    "commander": "^11.0.0",
     "connect-mongo": "^5.0.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -38,6 +40,7 @@
     "node-cron": "^3.0.2",
     "nodemailer": "^6.9.3",
     "npm": "^9.8.1",
+    "shelljs": "^0.8.5",
     "socket.io": "^4.6.1",
     "supertest": "^6.3.3",
     "swagger-jsdoc": "^6.2.8",
