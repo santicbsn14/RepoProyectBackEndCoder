@@ -1,0 +1,889 @@
+{
+	"info": {
+		"_postman_id": "f4279e77-426a-4c4d-8eeb-205305e81ced",
+		"name": "Proyecto Final Entregable",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26735906",
+		"_collection_link": "https://grey-crescent-218057.postman.co/workspace/New-Team-Workspace~98bc8a4d-02c0-4277-a38e-2bad59b2809c/collection/26735906-f4279e77-426a-4c4d-8eeb-205305e81ced?action=share&source=collection_link&creator=26735906"
+	},
+	"item": [
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://proyectbackendcoder-71l5-dev.fl0.io/api/products/",
+							"protocol": "https",
+							"host": [
+								"proyectbackendcoder-71l5-dev",
+								"fl0",
+								"io"
+							],
+							"path": [
+								"api",
+								"products",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateProduct",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n      \"title\": \"producto pruebaActualizado\",\r\n      \"description\": \"Este es un producto prueba actualizado\",\r\n      \"code\": \"abc15\",\r\n      \"price\": 200.2,\r\n      \"status\": true,\r\n      \"stock\": 10,\r\n      \"category\": \"1\",\r\n      \"img\": [\"path1\", \"path2\", \"path3\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://proyectbackendcoder-71l5-dev.fl0.io/api/products/:id",
+							"protocol": "https",
+							"host": [
+								"proyectbackendcoder-71l5-dev",
+								"fl0",
+								"io"
+							],
+							"path": [
+								"api",
+								"products",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetProducts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://proyectbackendcoder-71l5-dev.fl0.io/api/products/",
+							"protocol": "https",
+							"host": [
+								"proyectbackendcoder-71l5-dev",
+								"fl0",
+								"io"
+							],
+							"path": [
+								"api",
+								"products",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOneProduct",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://proyectbackendcoder-71l5-dev.fl0.io/api/products/:id",
+							"protocol": "https",
+							"host": [
+								"proyectbackendcoder-71l5-dev",
+								"fl0",
+								"io"
+							],
+							"path": [
+								"api",
+								"products",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteProduct",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://proyectbackendcoder-71l5-dev.fl0.io/api/products/:id",
+							"protocol": "https",
+							"host": [
+								"proyectbackendcoder-71l5-dev",
+								"fl0",
+								"io"
+							],
+							"path": [
+								"api",
+								"products",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Roles",
+			"item": [
+				{
+					"name": "Role",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"admin\",\r\n    \"permissions\":[\"updateRole, saveRole, createRole, saveProduct, updateProduct \"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://proyectbackendcoder-71l5-dev.fl0.io/api/roles",
+							"protocol": "https",
+							"host": [
+								"proyectbackendcoder-71l5-dev",
+								"fl0",
+								"io"
+							],
+							"path": [
+								"api",
+								"roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateRole",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "https://proyectbackendcoder-71l5-dev.fl0.io/api/carts/:cid",
+							"protocol": "https",
+							"host": [
+								"proyectbackendcoder-71l5-dev",
+								"fl0",
+								"io"
+							],
+							"path": [
+								"api",
+								"carts",
+								":cid"
+							],
+							"variable": [
+								{
+									"key": "cid",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetRoles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://proyectbackendcoder-71l5-dev.fl0.io/api/roles",
+							"protocol": "https",
+							"host": [
+								"proyectbackendcoder-71l5-dev",
+								"fl0",
+								"io"
+							],
+							"path": [
+								"api",
+								"roles"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOneRole",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://proyectbackendcoder-71l5-dev.fl0.io/api/roles/:id",
+							"protocol": "https",
+							"host": [
+								"proyectbackendcoder-71l5-dev",
+								"fl0",
+								"io"
+							],
+							"path": [
+								"api",
+								"roles",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteRole",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://proyectbackendcoder-71l5-dev.fl0.io/api/roles/:id",
+							"protocol": "https",
+							"host": [
+								"proyectbackendcoder-71l5-dev",
+								"fl0",
+								"io"
+							],
+							"path": [
+								"api",
+								"roles",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "UpdateUser",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\":\"UserTEstActualizado\",\r\n    \"lastname\": \"UserTEst\",\r\n    \"email\":\"UserTEst@test.com\",\r\n   \"age\": 22,\r\n    \"password\": \"UserTEst\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://proyectbackendcoder-71l5-dev.fl0.io/api/users/:id",
+							"protocol": "https",
+							"host": [
+								"proyectbackendcoder-71l5-dev",
+								"fl0",
+								"io"
+							],
+							"path": [
+								"api",
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetUsers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://proyectbackendcoder-71l5-dev.fl0.io/api/users/",
+							"protocol": "https",
+							"host": [
+								"proyectbackendcoder-71l5-dev",
+								"fl0",
+								"io"
+							],
+							"path": [
+								"api",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOneUser",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://proyectbackendcoder-71l5-dev.fl0.io/api/users/:id",
+							"protocol": "https",
+							"host": [
+								"proyectbackendcoder-71l5-dev",
+								"fl0",
+								"io"
+							],
+							"path": [
+								"api",
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteUser",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://proyectbackendcoder-71l5-dev.fl0.io/api/users/:id",
+							"protocol": "https",
+							"host": [
+								"proyectbackendcoder-71l5-dev",
+								"fl0",
+								"io"
+							],
+							"path": [
+								"api",
+								"users",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\":\"UserTEst\",\r\n    \"lastname\": \"UserTEst\",\r\n    \"email\":\"UserTEst@test.com\",\r\n   \"age\": 22,\r\n    \"password\": \"UserTEst\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://proyectbackendcoder-71l5-dev.fl0.io/api/users",
+							"protocol": "https",
+							"host": [
+								"proyectbackendcoder-71l5-dev",
+								"fl0",
+								"io"
+							],
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Session",
+			"item": [
+				{
+					"name": "Signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstname\":\"UserTEst\",\r\n    \"lastname\": \"UserTEst\",\r\n    \"email\":\"UserTEst@test.com\",\r\n   \"age\": 22,\r\n    \"password\": \"UserTEst\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://proyectbackendcoder-71l5-dev.fl0.io/api/session/signup",
+							"protocol": "https",
+							"host": [
+								"proyectbackendcoder-71l5-dev",
+								"fl0",
+								"io"
+							],
+							"path": [
+								"api",
+								"session",
+								"signup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"UserTEst@test.com\",\r\n    \"password\": \"UserTEst\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://proyectbackendcoder-71l5-dev.fl0.io/api/session/login",
+							"protocol": "https",
+							"host": [
+								"proyectbackendcoder-71l5-dev",
+								"fl0",
+								"io"
+							],
+							"path": [
+								"api",
+								"session",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://proyectbackendcoder-71l5-dev.fl0.io/api/session/logout",
+							"protocol": "https",
+							"host": [
+								"proyectbackendcoder-71l5-dev",
+								"fl0",
+								"io"
+							],
+							"path": [
+								"api",
+								"session",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Current",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://proyectbackendcoder-71l5-dev.fl0.io/api/session/current",
+							"protocol": "https",
+							"host": [
+								"proyectbackendcoder-71l5-dev",
+								"fl0",
+								"io"
+							],
+							"path": [
+								"api",
+								"session",
+								"current"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ForGotYourPassword",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"UserTEst@test.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://proyectbackendcoder-71l5-dev.fl0.io/api/session/forgotYourPassword",
+							"protocol": "https",
+							"host": [
+								"proyectbackendcoder-71l5-dev",
+								"fl0",
+								"io"
+							],
+							"path": [
+								"api",
+								"session",
+								"forgotYourPassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ViewChangePassword",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://proyectbackendcoder-71l5-dev.fl0.io/api/session/viewChangePassword",
+							"protocol": "https",
+							"host": [
+								"proyectbackendcoder-71l5-dev",
+								"fl0",
+								"io"
+							],
+							"path": [
+								"api",
+								"session",
+								"viewChangePassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ChangeForgotYourPassword",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"UserTEst@test.com\",\r\n    \"newPassword\":\"nuevacontraseña\",\r\n    \"confirmPassword\":\"nuevacontraseña\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://proyectbackendcoder-71l5-dev.fl0.io/api/session/changeForgotYourPassword",
+							"protocol": "https",
+							"host": [
+								"proyectbackendcoder-71l5-dev",
+								"fl0",
+								"io"
+							],
+							"path": [
+								"api",
+								"session",
+								"changeForgotYourPassword"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Carts",
+			"item": [
+				{
+					"name": "PostProductInCart",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "https://proyectbackendcoder-71l5-dev.fl0.io/api/carts/:cid/product/:pid",
+							"protocol": "https",
+							"host": [
+								"proyectbackendcoder-71l5-dev",
+								"fl0",
+								"io"
+							],
+							"path": [
+								"api",
+								"carts",
+								":cid",
+								"product",
+								":pid"
+							],
+							"variable": [
+								{
+									"key": "cid",
+									"value": ""
+								},
+								{
+									"key": "pid",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateCart",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\":\"ObjectIDuser\",\r\n    \"products\":[ {\r\n        \"_id\": \"ObjectIDActual\", \"quantity\": 3 //Cantidad Actualizada\r\n    }]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://proyectbackendcoder-71l5-dev.fl0.io/api/carts/:cid",
+							"protocol": "https",
+							"host": [
+								"proyectbackendcoder-71l5-dev",
+								"fl0",
+								"io"
+							],
+							"path": [
+								"api",
+								"carts",
+								":cid"
+							],
+							"variable": [
+								{
+									"key": "cid",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCarts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://proyectbackendcoder-71l5-dev.fl0.io/api/carts/",
+							"protocol": "https",
+							"host": [
+								"proyectbackendcoder-71l5-dev",
+								"fl0",
+								"io"
+							],
+							"path": [
+								"api",
+								"carts",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetOneCarts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://proyectbackendcoder-71l5-dev.fl0.io/api/carts/:cid",
+							"protocol": "https",
+							"host": [
+								"proyectbackendcoder-71l5-dev",
+								"fl0",
+								"io"
+							],
+							"path": [
+								"api",
+								"carts",
+								":cid"
+							],
+							"variable": [
+								{
+									"key": "cid",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteCart",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://proyectbackendcoder-71l5-dev.fl0.io/api/carts/:cid",
+							"protocol": "https",
+							"host": [
+								"proyectbackendcoder-71l5-dev",
+								"fl0",
+								"io"
+							],
+							"path": [
+								"api",
+								"carts",
+								":cid"
+							],
+							"variable": [
+								{
+									"key": "cid",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteProductInCart",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://proyectbackendcoder-71l5-dev.fl0.io/api/carts/:cid/product/:pid",
+							"protocol": "https",
+							"host": [
+								"proyectbackendcoder-71l5-dev",
+								"fl0",
+								"io"
+							],
+							"path": [
+								"api",
+								"carts",
+								":cid",
+								"product",
+								":pid"
+							],
+							"variable": [
+								{
+									"key": "cid",
+									"value": ""
+								},
+								{
+									"key": "pid",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Purchase",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://proyectbackendcoder-71l5-dev.fl0.io/api/carts/:cid/purchase",
+							"protocol": "https",
+							"host": [
+								"proyectbackendcoder-71l5-dev",
+								"fl0",
+								"io"
+							],
+							"path": [
+								"api",
+								"carts",
+								":cid",
+								"purchase"
+							],
+							"variable": [
+								{
+									"key": "cid",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cart",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\":\"ObjectIDuser\",\r\n    \"products\":[ {\r\n        \"_id\": \"ObjectID\", \"quantity\": 3\r\n    }]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://proyectbackendcoder-71l5-dev.fl0.io/api/carts",
+							"protocol": "https",
+							"host": [
+								"proyectbackendcoder-71l5-dev",
+								"fl0",
+								"io"
+							],
+							"path": [
+								"api",
+								"carts"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
