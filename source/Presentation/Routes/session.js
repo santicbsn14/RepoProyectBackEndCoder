@@ -10,7 +10,7 @@ sessionRouter.post('/signup', signup);
 
 sessionRouter.post('/login', login );
 
-sessionRouter.post('/logout', logout);
+sessionRouter.delete('/logout', logout);
 
 sessionRouter.get('/current',auth, current);
 
